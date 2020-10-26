@@ -1,6 +1,6 @@
 {
 	"name": "djtommek/mapycz-api",
-	"description": "Unofficial PHP 7 implementation of Mapy.cz",
+	"description": "Unofficial PHP 7 API wrapper for making requests to Mapy.cz",
     "keywords": ["mapy.cz", "mapycz", "mapy", "maps", "seznam.cz", "seznamcz", "seznam", "api"],
     "homepage": "https://github.com/DJTommek/mapycz-api",
 	"type": "library",
