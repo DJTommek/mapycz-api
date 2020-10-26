@@ -17,12 +17,8 @@ abstract class Type
 	 */
 	public static function cast(\stdClass $instance)
 	{
-		return unserialize(sprintf(
-			'O:%d:"%s"%s',
-			\strlen(static::class),
-			static::class,
-			strstr(strstr(serialize($instance), '"'), ':')
-		));
+		// @phpstan-ignore-next-line
+		return unserialize(sprintf('O:%d:"%s"%s', \strlen(static::class), static::class, strstr(strstr(serialize($instance), '"'), ':')));
 	}
 
 	/** @var mixed */

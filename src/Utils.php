@@ -16,9 +16,13 @@ class Utils
 	public static function fileGetContents(string $url, array $curlOpts = []): string
 	{
 		$curl = curl_init($url);
+		if ($curl === false) {
+			throw new \Exception('CURL can\'t be initialited.');
+		}
 		$curlOpts[CURLOPT_RETURNTRANSFER] = true;
 		$curlOpts[CURLOPT_HEADER] = true;
 		curl_setopt_array($curl, $curlOpts);
+		/** @var string|false $curlResponse */
 		$curlResponse = curl_exec($curl);
 		if ($curlResponse === false) {
 			$curlErrno = curl_errno($curl);
