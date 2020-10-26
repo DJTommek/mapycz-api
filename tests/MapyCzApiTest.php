@@ -97,4 +97,53 @@ final class MapyCzApiTest extends TestCase
 		$this->api->loadPanoramaDetails(99999999999);
 	}
 
+	public function testLoadPanoramaNeighbours(): void
+	{
+		$neighbours = $this->api->loadPanoramaNeighbours(68059377);
+		$this->assertCount(2, $neighbours);
+		$this->assertNull($neighbours[0]->far);
+		$this->assertEquals(50.075994572837189, $neighbours[0]->getLat());
+		$this->assertEquals(15.0168167856528, $neighbours[0]->getLon());
+		$this->assertNull($neighbours[1]->far);
+		$this->assertEquals(50.075924190323875, $neighbours[1]->getLat());
+		$this->assertEquals(15.016726675411652, $neighbours[1]->getLon());
+
+		$neighbours = $this->api->loadPanoramaNeighbours(66437731);
+		$this->assertCount(2, $neighbours);
+		$this->assertNull($neighbours[0]->far);
+		$this->assertEquals(50.123325864977183, $neighbours[0]->getLat());
+		$this->assertEquals(16.284511364095028, $neighbours[0]->getLon());
+		$this->assertNull($neighbours[1]->far);
+		$this->assertEquals(50.123376594103632, $neighbours[1]->getLat());
+		$this->assertEquals(16.284626669316179, $neighbours[1]->getLon());
+
+		$neighbours = $this->api->loadPanoramaNeighbours(68007689);
+		$this->assertCount(2, $neighbours);
+		$this->assertNull($neighbours[0]->far);
+		$this->assertEquals(50.094968792948613, $neighbours[0]->getLat());
+		$this->assertEquals(15.023015652760325, $neighbours[0]->getLon());
+		$this->assertNull($neighbours[1]->far);
+		$this->assertEquals(50.09493643386277, $neighbours[1]->getLat());
+		$this->assertEquals(15.023146415156226, $neighbours[1]->getLon());
+
+		$neighbours = $this->api->loadPanoramaNeighbours(70254688);
+		$this->assertCount(3, $neighbours);
+		$this->assertNull($neighbours[0]->far);
+		$this->assertEquals(50.07849937463579, $neighbours[0]->getLat());
+		$this->assertEquals(14.488475318684442, $neighbours[0]->getLon());
+		$this->assertNull($neighbours[1]->far);
+		$this->assertEquals(50.078453682198258, $neighbours[1]->getLat());
+		$this->assertEquals(14.488397090543286, $neighbours[1]->getLon());
+		$this->assertNull($neighbours[2]->far);
+		$this->assertEquals(50.07853766759132, $neighbours[2]->getLat());
+		$this->assertEquals(14.488341870960509, $neighbours[2]->getLon());
+	}
+
+	public function testLoadloadPanoramaNeighboursError1(): void
+	{
+		$this->expectException(MapyCzApiException::class);
+		$this->expectExceptionMessage('Panorama with id \'99999999999\' not found!');
+		$this->api->loadPanoramaNeighbours(99999999999);
+	}
+
 }

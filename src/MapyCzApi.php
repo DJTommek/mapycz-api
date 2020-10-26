@@ -2,6 +2,7 @@
 
 namespace DJTommek\MapyCzApi;
 
+use DJTommek\MapyCzApi\Types\PanoramaNeighbourType;
 use DJTommek\MapyCzApi\Types\PanoramaType;
 use DJTommek\MapyCzApi\Types\PlaceType;
 
@@ -13,6 +14,7 @@ class MapyCzApi
 	private const API_ENDPOINT_PANORAMA = '/panorpc';
 
 	private const API_METHOD_DETAIL = 'detail';
+	private const API_METHOD_GET_NEIGHBOURS = 'getneighbours';
 
 	/** @throws MapyCzApiException|\JsonException */
 	public function loadPoiDetails(string $source, int $id): PlaceType
@@ -28,6 +30,17 @@ class MapyCzApi
 		$body = $this->generateXmlRequest(self::API_METHOD_DETAIL, $id);
 		$response = $this->makeApiRequest(self::API_ENDPOINT_PANORAMA, $body);
 		return PanoramaType::cast($response->result);
+	}
+
+	/**
+	 * @return PanoramaNeighbourType[]
+	 * @throws MapyCzApiException|\JsonException
+	 */
+	public function loadPanoramaNeighbours(int $id): array
+	{
+		$body = $this->generateXmlRequest(self::API_METHOD_GET_NEIGHBOURS, $id);
+		$response = $this->makeApiRequest(self::API_ENDPOINT_PANORAMA, $body);
+		return PanoramaNeighbourType::createFromResponse($response);
 	}
 
 	/** @throws MapyCzApiException|\JsonException */
