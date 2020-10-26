@@ -24,6 +24,9 @@ abstract class Type
 		));
 	}
 
+	/** @var mixed */
+	public $mark;
+
 	public function getLat(): float
 	{
 		return $this->mark->lat;
