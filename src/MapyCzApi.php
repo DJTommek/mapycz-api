@@ -49,6 +49,10 @@ class MapyCzApi
 		}
 	}
 
+	/**
+	 * @param mixed ...$params parameters for methodName
+	 * @return \SimpleXMLElement
+	 */
 	private function generateXmlRequest(string $methodName, ...$params): \SimpleXMLElement
 	{
 		/**

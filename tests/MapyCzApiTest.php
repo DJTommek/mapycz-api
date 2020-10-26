@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 final class MapyCzApiTest extends TestCase
 {
+	/** @var MapyCzApi */
 	private $api;
 
 	public function setUp(): void

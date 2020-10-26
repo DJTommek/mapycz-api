@@ -13,6 +13,7 @@ abstract class Type
 	 *
 	 * @author https://stackoverflow.com/a/3243949/3334403
 	 * @author https://tommcfarlin.com/cast-a-php-standard-class-to-a-specific-type/
+	 * @return Type
 	 */
 	public static function cast(\stdClass $instance)
 	{
