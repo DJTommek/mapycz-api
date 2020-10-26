@@ -1,0 +1,25 @@
+{
+	"name": "djtommek/mapycz-api",
+	"description": "Unofficial PHP 7 implementation of Mapy.cz",
+    "keywords": ["mapy.cz", "mapycz", "mapy", "maps", "seznam.cz", "seznamcz", "seznam", "api"],
+    "homepage": "https://github.com/DJTommek/mapycz-api",
+	"type": "library",
+	"license": "BSD-2-Clause",
+	"authors": [
+		{
+			"name": "Tomas Palider (DJTommek)",
+			"email": "tomas@palider.cz",
+			"homepage": "https://tomas.palider.cz/"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"DJTommek\\MapyCzApi\\": "src/"
+		}
+	},
+	"require": {
+        "php": ">=7.3.0",
+		"ext-curl": "*",
+		"ext-simplexml": "*"
+	}
+}
