@@ -49,12 +49,12 @@ final class MapyCzApiTest extends TestCase
 		$this->assertEquals(-101.8737286610846, $place->getLon());
 
 		$place = $this->api->loadPoiDetails('osm', 1040985945);
-		$this->assertEquals(-18.917187302602514, $place->getLat());
-		$this->assertEquals(47.535795241190634, $place->getLon());
+		$this->assertEquals(-18.917167018396825, $place->getLat());
+		$this->assertEquals(47.53575634915991, $place->getLon());
 
 		$place = $this->api->loadPoiDetails('osm', 17164289);
-		$this->assertEquals(-45.870330022708686, $place->getLat());
-		$this->assertEquals(-67.507560031059569, $place->getLon());
+		$this->assertEquals(-45.870288951383145, $place->getLat());
+		$this->assertEquals(-67.50777737380889, $place->getLon());
 	}
 
 	public function testLoadPoiDetailsError1(): void
