@@ -31,7 +31,7 @@ class Utils
 		$curlInfo = curl_getinfo($curl);
 		list($header, $body) = explode("\r\n\r\n", $curlResponse, 2);
 		if ($curlInfo['http_code'] >= 500) {
-			throw new \Exception(sprintf('Page responded with HTTP code %d: Text response: "%s"', $curlInfo['http_code'], $body));
+			throw new \Exception(sprintf('Page responded with HTTP code %d: Text response: "%s"', $curlInfo['http_code'], $body), $curlInfo['http_code']);
 		}
 		if (!$body) {
 			$responseCode = trim(explode(PHP_EOL, $header)[0]);
