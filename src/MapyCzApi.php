@@ -16,6 +16,15 @@ class MapyCzApi
 	private const API_METHOD_DETAIL = 'detail';
 	private const API_METHOD_GET_NEIGHBOURS = 'getneighbours';
 
+	// Known "source" parameters accepted in $this->loadPoiDetails()
+	public const SOURCE_COOR = 'coor';
+	public const SOURCE_BASE = 'base';
+	public const SOURCE_FIRM = 'firm';
+	public const SOURCE_PUBT = 'pubt';
+	public const SOURCE_TRAF = 'traf';
+	public const SOURCE_FOTO = 'foto';
+	public const SOURCE_OSM = 'osm';
+
 	/** @throws MapyCzApiException|\JsonException */
 	public function loadPoiDetails(string $source, int $id): PlaceType
 	{
