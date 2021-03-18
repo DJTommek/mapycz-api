@@ -146,4 +146,138 @@ final class MapyCzApiTest extends TestCase
 		$this->api->loadPanoramaNeighbours(99999999999);
 	}
 
+	public function testLoadReverseGeocode(): void
+	{
+		$data = $this->api->reverseGeocode(50.088024, 14.421580);
+		$this->assertSame('Staroměstské náměstí 606/11, Praha, 110 00, Hlavní město Praha', $data->label);
+		$this->assertSame('Ok', $data->message);
+		$this->assertSame(200, $data->status);
+		$this->assertSame('Staroměstské náměstí 606/11, Praha, 110 00, Hlavní město Praha', $data->getAddress());
+		$this->assertSame(50.08801489569467, $data->getLat());
+		$this->assertSame(14.421563306025112, $data->getLon());
+
+		$this->assertCount(8, $data->items);
+
+		$this->assertSame(8939832, $data->items[0]->id);
+		$this->assertSame('Staroměstské náměstí 606/11', $data->items[0]->name);
+		$this->assertSame('addr', $data->items[0]->source);
+		$this->assertSame('addr', $data->items[0]->type);
+		$this->assertSame(14.421563306025112, $data->items[0]->x);
+		$this->assertSame(50.08801489569467, $data->items[0]->y);
+		$this->assertSame(50.08801489569467, $data->items[0]->getLat());
+		$this->assertSame(14.421563306025112, $data->items[0]->getLon());
+
+		$this->assertSame(121933, $data->items[1]->id);
+		$this->assertSame('Staroměstské náměstí', $data->items[1]->name);
+		$this->assertSame('stre', $data->items[1]->source);
+		$this->assertSame('stre', $data->items[1]->type);
+		$this->assertSame(14.421469238307932, $data->items[1]->x);
+		$this->assertSame(50.08794369743767, $data->items[1]->y);
+		$this->assertSame(50.08794369743767, $data->items[1]->getLat());
+		$this->assertSame(14.421469238307932, $data->items[1]->getLon());
+
+		$this->assertSame(87, $data->items[2]->id);
+		$this->assertSame('Praha 1', $data->items[2]->name);
+		$this->assertSame('quar', $data->items[2]->source);
+		$this->assertSame('quar', $data->items[2]->type);
+		$this->assertSame(14.424132200124081, $data->items[2]->x);
+		$this->assertSame(50.08783679317715, $data->items[2]->y);
+		$this->assertSame(50.08783679317715, $data->items[2]->getLat());
+		$this->assertSame(14.424132200124081, $data->items[2]->getLon());
+
+		$this->assertSame(13674, $data->items[3]->id);
+		$this->assertSame('Staré Město', $data->items[3]->name);
+		$this->assertSame('ward', $data->items[3]->source);
+		$this->assertSame('ward', $data->items[3]->type);
+		$this->assertSame(14.417781898902357, $data->items[3]->x);
+		$this->assertSame(50.084551750804636, $data->items[3]->y);
+		$this->assertSame(50.084551750804636, $data->items[3]->getLat());
+		$this->assertSame(14.417781898902357, $data->items[3]->getLon());
+
+		$this->assertSame(3468, $data->items[4]->id);
+		$this->assertSame('Praha', $data->items[4]->name);
+		$this->assertSame('muni', $data->items[4]->source);
+		$this->assertSame('muni', $data->items[4]->type);
+		$this->assertSame(14.4341412988, $data->items[4]->x);
+		$this->assertSame(50.0835493857, $data->items[4]->y);
+		$this->assertSame(50.0835493857, $data->items[4]->getLat());
+		$this->assertSame(14.4341412988, $data->items[4]->getLon());
+
+		$this->assertSame(47, $data->items[5]->id);
+		$this->assertSame('Okres Hlavní město Praha', $data->items[5]->name);
+		$this->assertSame('dist', $data->items[5]->source);
+		$this->assertSame('dist', $data->items[5]->type);
+		$this->assertSame(14.466000012509516, $data->items[5]->x);
+		$this->assertSame(50.066789200182676, $data->items[5]->y);
+		$this->assertSame(50.066789200182676, $data->items[5]->getLat());
+		$this->assertSame(14.466000012509516, $data->items[5]->getLon());
+
+		$this->assertSame(10, $data->items[6]->id);
+		$this->assertSame('Hlavní město Praha', $data->items[6]->name);
+		$this->assertSame('regi', $data->items[6]->source);
+		$this->assertSame('regi', $data->items[6]->type);
+		$this->assertSame(14.466, $data->items[6]->x);
+		$this->assertSame(50.066789, $data->items[6]->y);
+		$this->assertSame(50.066789, $data->items[6]->getLat());
+		$this->assertSame(14.466, $data->items[6]->getLon());
+
+		$this->assertSame(112, $data->items[7]->id);
+		$this->assertSame('Česko', $data->items[7]->name);
+		$this->assertSame('coun', $data->items[7]->source);
+		$this->assertSame('coun', $data->items[7]->type);
+		$this->assertSame(15.338411, $data->items[7]->x);
+		$this->assertSame(49.742858, $data->items[7]->y);
+		$this->assertSame(49.742858, $data->items[7]->getLat());
+		$this->assertSame(15.338411, $data->items[7]->getLon());
+
+
+		$data = $this->api->reverseGeocode(50.133923, 14.409660);
+		$this->assertSame('Dolákova, Praha, Hlavní město Praha', $data->getAddress());
+		$this->assertSame('Ok', $data->message);
+		$this->assertSame(200, $data->status);
+		$this->assertSame('Dolákova, Praha, Hlavní město Praha', $data->getAddress());
+		$this->assertSame(50.13388796390199, $data->getLat());
+		$this->assertSame(14.40907643707425, $data->getLon());
+		$this->assertCount(7, $data->items);
+
+
+		$data = $this->api->reverseGeocode(40.414711, -3.700830);
+		$this->assertSame('Plaza de Santa Ana', $data->getAddress());
+		$this->assertSame('Ok', $data->message);
+		$this->assertSame(200, $data->status);
+		$this->assertSame('Plaza de Santa Ana', $data->getAddress());
+		$this->assertSame(40.41475628108246, $data->getLat());
+		$this->assertSame(-3.700786986902391, $data->getLon());
+		$this->assertCount(6, $data->items);
+
+		$this->assertSame(1023817397, $data->items[0]->id);
+		$this->assertSame('Plaza de Santa Ana', $data->items[0]->name);
+		$this->assertSame('osm', $data->items[0]->source);
+		$this->assertSame('osms', $data->items[0]->type);
+		$this->assertSame(-3.700786986902391, $data->items[0]->x);
+		$this->assertSame(40.41475628108246, $data->items[0]->y);
+		$this->assertSame(40.41475628108246, $data->items[0]->getLat());
+		$this->assertSame(-3.700786986902391, $data->items[0]->getLon());
+
+
+		$data = $this->api->reverseGeocode(0, 0);
+		$this->assertSame('Atlantský oceán', $data->getAddress());
+		$this->assertCount(1, $data->items);
+
+		$this->assertSame(112794890, $data->items[0]->id);
+		$this->assertSame('Atlantic Ocean', $data->items[0]->name);
+		$this->assertSame('osm', $data->items[0]->source);
+		$this->assertSame('osma', $data->items[0]->type);
+		$this->assertSame(-38.32031204752161, $data->items[0]->x);
+		$this->assertSame(13.58192094506344, $data->items[0]->y);
+		$this->assertSame(13.58192094506344, $data->items[0]->getLat());
+		$this->assertSame(-38.32031204752161, $data->items[0]->getLon());
+	}
+
+	public function testLoadReverseGeocodeError1(): void
+	{
+		$this->expectException(MapyCzApiException::class);
+		$this->expectExceptionMessage('No data, are coordinates valid?');
+		$this->api->reverseGeocode(50.133923, 514.409660);
+	}
 }

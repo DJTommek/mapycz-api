@@ -5,13 +5,16 @@ namespace DJTommek\MapyCzApi;
 use DJTommek\MapyCzApi\Types\PanoramaNeighbourType;
 use DJTommek\MapyCzApi\Types\PanoramaType;
 use DJTommek\MapyCzApi\Types\PlaceType;
+use DJTommek\MapyCzApi\Types\ReverseGeocodeType;
 
 class MapyCzApi
 {
 	const API_URL = 'https://pro.mapy.cz';
+	const API_URL_PUBLIC = 'https://api.mapy.cz';
 
 	private const API_ENDPOINT_POI = '/poiagg';
 	private const API_ENDPOINT_PANORAMA = '/panorpc';
+	private const API_ENDPOINT_REVERSE_GEOCODE = '/rgeocode';
 
 	private const API_METHOD_DETAIL = 'detail';
 	private const API_METHOD_GET_NEIGHBOURS = 'getneighbours';
@@ -52,6 +55,15 @@ class MapyCzApi
 		return PanoramaNeighbourType::createFromResponse($response);
 	}
 
+	public function reverseGeocode(float $lat, float $lon): ReverseGeocodeType
+	{
+		$response = $this->makePublicApiRequest(self::API_ENDPOINT_REVERSE_GEOCODE, [
+			'lat' => $lat,
+			'lon' => $lon,
+		]);
+		return ReverseGeocodeType::cast($response);
+	}
+
 	/** @throws MapyCzApiException|\JsonException */
 	private function makeApiRequest(string $endpoint, \SimpleXMLElement $rawPostContent): \stdClass
 	{
@@ -72,6 +84,16 @@ class MapyCzApi
 		} else {
 			throw new MapyCzApiException($content->statusMessage, $content->status);
 		}
+	}
+
+	private function makePublicApiRequest(string $endpoint, array $parameters = []): \SimpleXMLElement
+	{
+		$url = self::API_URL_PUBLIC . $endpoint;
+		if (count($parameters) > 0) {
+            $url .= '?' . http_build_query($parameters);
+		}
+		$response = Utils::fileGetContents($url);
+		return new \SimpleXMLElement($response);
 	}
 
 	/**
