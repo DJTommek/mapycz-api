@@ -171,10 +171,10 @@ final class MapyCzApiTest extends TestCase
 		$this->assertSame('Staroměstské náměstí', $data->items[1]->name);
 		$this->assertSame('stre', $data->items[1]->source);
 		$this->assertSame('stre', $data->items[1]->type);
-		$this->assertSame(14.421469238307932, $data->items[1]->x);
-		$this->assertSame(50.08794369743767, $data->items[1]->y);
-		$this->assertSame(50.08794369743767, $data->items[1]->getLat());
-		$this->assertSame(14.421469238307932, $data->items[1]->getLon());
+		$this->assertSame(14.420509314368898, $data->items[1]->x);
+		$this->assertSame(50.08777079179988, $data->items[1]->y);
+		$this->assertSame(50.08777079179988, $data->items[1]->getLat());
+		$this->assertSame(14.420509314368898, $data->items[1]->getLon());
 
 		$this->assertSame(87, $data->items[2]->id);
 		$this->assertSame('Praha 1', $data->items[2]->name);
@@ -207,10 +207,10 @@ final class MapyCzApiTest extends TestCase
 		$this->assertSame('Okres Hlavní město Praha', $data->items[5]->name);
 		$this->assertSame('dist', $data->items[5]->source);
 		$this->assertSame('dist', $data->items[5]->type);
-		$this->assertSame(14.466000012509516, $data->items[5]->x);
-		$this->assertSame(50.066789200182676, $data->items[5]->y);
-		$this->assertSame(50.066789200182676, $data->items[5]->getLat());
-		$this->assertSame(14.466000012509516, $data->items[5]->getLon());
+		$this->assertSame(14.46600001237678, $data->items[5]->x);
+		$this->assertSame(50.066789200117995, $data->items[5]->y);
+		$this->assertSame(50.066789200117995, $data->items[5]->getLat());
+		$this->assertSame(14.46600001237678, $data->items[5]->getLon());
 
 		$this->assertSame(10, $data->items[6]->id);
 		$this->assertSame('Hlavní město Praha', $data->items[6]->name);
@@ -236,8 +236,8 @@ final class MapyCzApiTest extends TestCase
 		$this->assertSame('Ok', $data->message);
 		$this->assertSame(200, $data->status);
 		$this->assertSame('Dolákova, Praha, Hlavní město Praha', $data->getAddress());
-		$this->assertSame(50.13388796390199, $data->getLat());
-		$this->assertSame(14.40907643707425, $data->getLon());
+		$this->assertSame(50.133586463115805, $data->getLat());
+		$this->assertSame(14.406183913207974, $data->getLon());
 		$this->assertCount(7, $data->items);
 
 
@@ -248,7 +248,7 @@ final class MapyCzApiTest extends TestCase
 		$this->assertSame('Plaza de Santa Ana', $data->getAddress());
 		$this->assertSame(40.41475628108246, $data->getLat());
 		$this->assertSame(-3.700786986902391, $data->getLon());
-		$this->assertCount(6, $data->items);
+		$this->assertCount(9, $data->items);
 
 		$this->assertSame(1023817397, $data->items[0]->id);
 		$this->assertSame('Plaza de Santa Ana', $data->items[0]->name);
