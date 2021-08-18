@@ -16,7 +16,7 @@ printf('lat: %F, lon: %F', $place->getLat(), $place->getLon());
 // lat: 50.132131, lon: 16.313767
 ```
 
-See [tests](tests/MapyCzApiTest.php) for more examples.
+See [tests](tests/MapyCzApiTest.php) or [examples](examples/) for more.
 
 ## Testing
 ```
