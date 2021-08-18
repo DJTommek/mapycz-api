@@ -280,4 +280,36 @@ final class MapyCzApiTest extends TestCase
 		$this->expectExceptionMessage('No data, are coordinates valid?');
 		$this->api->reverseGeocode(50.133923, 514.409660);
 	}
+
+	public function testLoadLookupBox(): void
+	{
+		$options = new stdClass();
+		$options->zoom = 13;
+		$options->mapsetId = 1;
+		$places = $this->api->loadLookupBox(14.099642, 49.997597, 14.367434, 50.102973, $options);
+		$this->assertCount(6, $places);
+		$this->assertEquals('Obchvat Jinočan - Okružní ulice', $places[0]->title);
+		$this->assertEquals(50.0339410763, $places[0]->getLat());
+		$this->assertEquals(14.2750335485, $places[0]->getLon());
+		$this->assertEquals('Letiště Václava Havla Praha (PRG)', $places[3]->title);
+		$this->assertEquals(50.1083951973, $places[3]->getLat());
+		$this->assertEquals(14.2621233398, $places[3]->getLon());
+	}
+
+	public function testLoadLookupBoxError1(): void
+	{
+		$this->expectException(MapyCzApiException::class);
+		$this->expectExceptionMessage('Key "zoom" does not exist.');
+		$options = new stdClass();
+		$this->api->loadLookupBox(14.099642, 49.997597, 14.367434, 50.102973, $options);
+	}
+
+	public function testLoadLookupBoxError2(): void
+	{
+		$this->expectException(MapyCzApiException::class);
+		$this->expectExceptionMessage('Incomplete, errors: Call to http://traffic-poiserver.mapy-stable.ops.iszn.cz:10322/ failed with message: status error Internal Server Error');
+		$options = new stdClass();
+		$options->zoom = 13;
+		$this->api->loadLookupBox(14.099642, 49.997597, 14.367434, 50.102973, $options);
+	}
 }

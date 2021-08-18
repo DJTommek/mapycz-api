@@ -18,6 +18,7 @@ class MapyCzApi
 
 	private const API_METHOD_DETAIL = 'detail';
 	private const API_METHOD_GET_NEIGHBOURS = 'getneighbours';
+	private const API_METHOD_LOOKUP_BOX = 'lookupbox';
 
 	// Known "source" parameters accepted in $this->loadPoiDetails()
 	public const SOURCE_COOR = 'coor';
@@ -62,6 +63,18 @@ class MapyCzApi
 			'lon' => $lon,
 		]);
 		return ReverseGeocodeType::cast($response);
+	}
+
+	/** @throws MapyCzApiException|\JsonException */
+	public function loadLookupBox(float $lon1, float $lat1, float $lon2, float $lat2, $options): array
+	{
+		$xmlBody = $this->generateXmlRequest(self::API_METHOD_LOOKUP_BOX, $lon1, $lat1, $lon2, $lat2, $options);
+		$response = $this->makeApiRequest(self::API_ENDPOINT_POI, $xmlBody);
+		$places = [];
+		foreach ($response->poi as $poi) {
+			$places[] = PlaceType::cast($poi);
+		}
+		return $places;
 	}
 
 	/** @throws MapyCzApiException|\JsonException */
