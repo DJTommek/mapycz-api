@@ -113,14 +113,35 @@ class MapyCzApi
 		foreach ($params as $param) {
 			$xmlParam = $methodParams->addChild('param');
 			$xmlValue = $xmlParam->addChild('value');
-			if (is_int($param)) {
-				$xmlValue->addChild('int', strval($param));
-			} else if (is_string($param)) {
-				$xmlValue->addChild('string', $param);
-			} else {
-				throw new \InvalidArgumentException(sprintf('Unexpected type "%s" of parameter.', gettype($param)));
-			}
+			self::fillXmlParam($xmlValue, $param);
 		}
 		return $xml;
+	}
+
+	/**
+	 * Build XML structure into given XML element based on parameters for API request.
+	 *
+	 * @param \SimpleXMLElement $xml
+	 * @param int|float|string|\stdClass $param
+	 */
+	private static function fillXmlParam(\SimpleXMLElement $xml, $param): void
+	{
+		if (is_int($param)) {
+			$xml->addChild('int', strval($param));
+		} else if (is_float($param)) {
+			$xml->addChild('double', strval($param));
+		} else if (is_string($param)) {
+			$xml->addChild('string', $param);
+		} else if ($param instanceof \stdClass) {
+			$xmlStruct = $xml->addChild('struct');
+			foreach ($param as $structName => $structValue) {
+				$xmlStructMember = $xmlStruct->addChild('member');
+				$xmlStructMember->addChild('name', $structName);
+				$xmlStructMemberValue = $xmlStructMember->addChild('value');
+				self::fillXmlParam($xmlStructMemberValue, $structValue);
+			}
+		} else {
+			throw new \InvalidArgumentException(sprintf('Unexpected type "%s" of parameter.', gettype($param)));
+		}
 	}
 }
