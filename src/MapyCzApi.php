@@ -90,7 +90,7 @@ class MapyCzApi
 	{
 		$url = self::API_URL_PUBLIC . $endpoint;
 		if (count($parameters) > 0) {
-            $url .= '?' . http_build_query($parameters);
+			$url .= '?' . http_build_query($parameters);
 		}
 		$response = Utils::fileGetContents($url);
 		return new \SimpleXMLElement($response);
