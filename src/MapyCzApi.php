@@ -86,6 +86,7 @@ class MapyCzApi
 			CURLOPT_HTTPHEADER => [
 				'Accept: application/json',
 				'Content-Type: text/xml',
+				'Referer: https://en.mapy.cz/',
 			],
 		]);
 		$content = \json_decode($response, false, 512, JSON_THROW_ON_ERROR);
