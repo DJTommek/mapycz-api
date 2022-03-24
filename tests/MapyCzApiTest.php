@@ -127,16 +127,16 @@ final class MapyCzApiTest extends TestCase
 		$this->assertEquals(15.023146415156226, $neighbours[1]->getLon());
 
 		$neighbours = $this->api->loadPanoramaNeighbours(70254688);
-		$this->assertCount(3, $neighbours);
+		$this->assertCount(4, $neighbours);
 		$this->assertNull($neighbours[0]->far);
-		$this->assertEquals(50.07849937463579, $neighbours[0]->getLat());
-		$this->assertEquals(14.488475318684442, $neighbours[0]->getLon());
+		$this->assertEquals(50.078590071104, $neighbours[0]->getLat());
+		$this->assertEquals(14.488226145758, $neighbours[0]->getLon());
 		$this->assertNull($neighbours[1]->far);
-		$this->assertEquals(50.078453682198258, $neighbours[1]->getLat());
-		$this->assertEquals(14.488397090543286, $neighbours[1]->getLon());
+		$this->assertEquals(50.078571741589, $neighbours[1]->getLat());
+		$this->assertEquals(14.488507011519, $neighbours[1]->getLon());
 		$this->assertNull($neighbours[2]->far);
-		$this->assertEquals(50.07853766759132, $neighbours[2]->getLat());
-		$this->assertEquals(14.488341870960509, $neighbours[2]->getLon());
+		$this->assertEquals(50.078562904609, $neighbours[2]->getLat());
+		$this->assertEquals(14.488405598016, $neighbours[2]->getLon());
 	}
 
 	public function testLoadloadPanoramaNeighboursError1(): void
@@ -207,10 +207,10 @@ final class MapyCzApiTest extends TestCase
 		$this->assertSame('Okres Hlavní město Praha', $data->items[5]->name);
 		$this->assertSame('dist', $data->items[5]->source);
 		$this->assertSame('dist', $data->items[5]->type);
-		$this->assertSame(14.46600001237678, $data->items[5]->x);
+		$this->assertSame(14.466000012808934, $data->items[5]->x);
 		$this->assertSame(50.066789200117995, $data->items[5]->y);
 		$this->assertSame(50.066789200117995, $data->items[5]->getLat());
-		$this->assertSame(14.46600001237678, $data->items[5]->getLon());
+		$this->assertSame(14.466000012808934, $data->items[5]->getLon());
 
 		$this->assertSame(10, $data->items[6]->id);
 		$this->assertSame('Hlavní město Praha', $data->items[6]->name);
@@ -236,8 +236,8 @@ final class MapyCzApiTest extends TestCase
 		$this->assertSame('Ok', $data->message);
 		$this->assertSame(200, $data->status);
 		$this->assertSame('Dolákova, Praha, Hlavní město Praha', $data->getAddress());
-		$this->assertSame(50.133586463115805, $data->getLat());
-		$this->assertSame(14.406183913207974, $data->getLon());
+		$this->assertSame(50.13358200394987, $data->getLat());
+		$this->assertSame(14.406162964024444, $data->getLon());
 		$this->assertCount(7, $data->items);
 
 
@@ -248,7 +248,7 @@ final class MapyCzApiTest extends TestCase
 		$this->assertSame('Plaza de Santa Ana', $data->getAddress());
 		$this->assertSame(40.41475628108246, $data->getLat());
 		$this->assertSame(-3.700786986902391, $data->getLon());
-		$this->assertCount(9, $data->items);
+		$this->assertCount(7, $data->items);
 
 		$this->assertSame(1023817397, $data->items[0]->id);
 		$this->assertSame('Plaza de Santa Ana', $data->items[0]->name);
@@ -287,13 +287,15 @@ final class MapyCzApiTest extends TestCase
 		$options->zoom = 13;
 		$options->mapsetId = 1;
 		$places = $this->api->loadLookupBox(14.099642, 49.997597, 14.367434, 50.102973, $options);
-		$this->assertCount(6, $places);
-		$this->assertEquals('Obchvat Jinočan - Okružní ulice', $places[0]->title);
-		$this->assertEquals(50.0339410763, $places[0]->getLat());
-		$this->assertEquals(14.2750335485, $places[0]->getLon());
-		$this->assertEquals('Letiště Václava Havla Praha (PRG)', $places[3]->title);
-		$this->assertEquals(50.1083951973, $places[3]->getLat());
-		$this->assertEquals(14.2621233398, $places[3]->getLon());
+		$this->assertCount(7, $places);
+
+		// @TODO results are kind of random - so just checking, that no exception is thrown.
+//		$this->assertEquals('Obchvat Jinočan - Okružní ulice', $places[0]->title);
+//		$this->assertEquals(50.0339410763, $places[0]->getLat());
+//		$this->assertEquals(14.2750335485, $places[0]->getLon());
+//		$this->assertEquals('Letiště Václava Havla Praha (PRG)', $places[3]->title);
+//		$this->assertEquals(50.1083951973, $places[3]->getLat());
+//		$this->assertEquals(14.2621233398, $places[3]->getLon());
 	}
 
 	public function testLoadLookupBoxError1(): void
@@ -301,15 +303,6 @@ final class MapyCzApiTest extends TestCase
 		$this->expectException(MapyCzApiException::class);
 		$this->expectExceptionMessage('Key "zoom" does not exist.');
 		$options = new stdClass();
-		$this->api->loadLookupBox(14.099642, 49.997597, 14.367434, 50.102973, $options);
-	}
-
-	public function testLoadLookupBoxError2(): void
-	{
-		$this->expectException(MapyCzApiException::class);
-		$this->expectExceptionMessage('Incomplete, errors: Call to http://traffic-poiserver.mapy-stable.ops.iszn.cz:10322/ failed with message: status error Internal Server Error');
-		$options = new stdClass();
-		$options->zoom = 13;
 		$this->api->loadLookupBox(14.099642, 49.997597, 14.367434, 50.102973, $options);
 	}
 }
