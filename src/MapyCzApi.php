@@ -6,6 +6,7 @@ use DJTommek\MapyCzApi\Types\PanoramaNeighbourType;
 use DJTommek\MapyCzApi\Types\PanoramaType;
 use DJTommek\MapyCzApi\Types\PlaceType;
 use DJTommek\MapyCzApi\Types\ReverseGeocodeType;
+use DJTommek\MapyCzApi\Types\SearchResultsType;
 
 class MapyCzApi
 {
@@ -15,10 +16,12 @@ class MapyCzApi
 	private const API_ENDPOINT_POI = '/poiagg';
 	private const API_ENDPOINT_PANORAMA = '/panorpc';
 	private const API_ENDPOINT_REVERSE_GEOCODE = '/rgeocode';
+	private const API_ENDPOINT_SEARCH = '/search';
 
 	private const API_METHOD_DETAIL = 'detail';
 	private const API_METHOD_GET_NEIGHBOURS = 'getneighbours';
 	private const API_METHOD_LOOKUP_BOX = 'lookupbox';
+	private const API_METHOD_SEARCH = 'search';
 
 	// Known "source" parameters accepted in $this->loadPoiDetails()
 	public const SOURCE_COOR = 'coor';
@@ -75,6 +78,17 @@ class MapyCzApi
 			$places[] = PlaceType::cast($poi);
 		}
 		return $places;
+	}
+
+	/** @throws MapyCzApiException|\JsonException */
+	public function runSearch(string $query, int $offset = 0, int $limit = 100, \stdClass $options = null): SearchResultsType
+	{
+		if ($options === null) {
+			$options = new \stdClass();
+		}
+		$xmlBody = $this->generateXmlRequest(self::API_METHOD_SEARCH, $query, $offset, $limit, $options);
+		$response = $this->makeApiRequest(self::API_ENDPOINT_SEARCH, $xmlBody);
+		return SearchResultsType::createFromResponse($this, $response);
 	}
 
 	/** @throws MapyCzApiException|\JsonException */
