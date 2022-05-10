@@ -305,4 +305,17 @@ final class MapyCzApiTest extends TestCase
 		$options = new stdClass();
 		$this->api->loadLookupBox(14.099642, 49.997597, 14.367434, 50.102973, $options);
 	}
+
+	public function testLoadPanoramaGetBest(): void
+	{
+		$bestPanorama = $this->api->loadPanoramaGetBest(14.421127, 50.087726);
+		$this->assertSame(70102895, $bestPanorama->pid);
+		$this->assertEqualsWithDelta(255.76090162311178, $bestPanorama->azimuth, 0.0001);
+		$this->assertEqualsWithDelta(27.56126704628921, $bestPanorama->distance, 0.0001);
+		$this->assertEqualsWithDelta(255.76090162311178, $bestPanorama->lookDir, 0.0001);
+		$this->assertSame(50, $bestPanorama->radius);
+
+		// same panorama but limited radius
+		$this->assertNull($this->api->loadPanoramaGetBest(14.421127, 50.087726, 10));
+	}
 }

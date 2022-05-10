@@ -2,6 +2,7 @@
 
 namespace DJTommek\MapyCzApi;
 
+use DJTommek\MapyCzApi\Types\PanoramaBestType;
 use DJTommek\MapyCzApi\Types\PanoramaNeighbourType;
 use DJTommek\MapyCzApi\Types\PanoramaType;
 use DJTommek\MapyCzApi\Types\PlaceType;
@@ -19,6 +20,7 @@ class MapyCzApi
 	private const API_METHOD_DETAIL = 'detail';
 	private const API_METHOD_GET_NEIGHBOURS = 'getneighbours';
 	private const API_METHOD_LOOKUP_BOX = 'lookupbox';
+	private const API_METHOD_GETBEST = 'getbest';
 
 	// Known "source" parameters accepted in $this->loadPoiDetails()
 	public const SOURCE_COOR = 'coor';
@@ -75,6 +77,26 @@ class MapyCzApi
 			$places[] = PlaceType::cast($poi);
 		}
 		return $places;
+	}
+
+	/**
+	 * Try to find best suitable panorama for given coordinates or null if no suitable Panorama Was found.
+	 *
+	 * @throws MapyCzApiException|\JsonException
+	 */
+	public function loadPanoramaGetBest(float $lon, float $lat, float $radius = 50): ?PanoramaBestType
+	{
+		try {
+			$xmlBody = $this->generateXmlRequest(self::API_METHOD_GETBEST, $lon, $lat, $radius);
+			$response = $this->makeApiRequest(self::API_ENDPOINT_PANORAMA, $xmlBody);
+			return PanoramaBestType::createFromResponse($response->result);
+		} catch (MapyCzApiException $exception) {
+			if ($exception->getCode() === 404) {
+				return null;
+			} else {
+				throw $exception;
+			}
+		}
 	}
 
 	/** @throws MapyCzApiException|\JsonException */
