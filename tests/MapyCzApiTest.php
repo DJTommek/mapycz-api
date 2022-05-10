@@ -246,18 +246,18 @@ final class MapyCzApiTest extends TestCase
 		$this->assertSame('Ok', $data->message);
 		$this->assertSame(200, $data->status);
 		$this->assertSame('Plaza de Santa Ana', $data->getAddress());
-		$this->assertSame(40.41475628108246, $data->getLat());
-		$this->assertSame(-3.700786986902391, $data->getLon());
+		$this->assertSame(40.41480397411152, $data->getLat());
+		$this->assertSame(-3.700791339178318, $data->getLon());
 		$this->assertCount(7, $data->items);
 
 		$this->assertSame(1023817397, $data->items[0]->id);
 		$this->assertSame('Plaza de Santa Ana', $data->items[0]->name);
 		$this->assertSame('osm', $data->items[0]->source);
 		$this->assertSame('osms', $data->items[0]->type);
-		$this->assertSame(-3.700786986902391, $data->items[0]->x);
-		$this->assertSame(40.41475628108246, $data->items[0]->y);
-		$this->assertSame(40.41475628108246, $data->items[0]->getLat());
-		$this->assertSame(-3.700786986902391, $data->items[0]->getLon());
+		$this->assertSame(-3.700791339178318, $data->items[0]->x);
+		$this->assertSame(40.41480397411152, $data->items[0]->y);
+		$this->assertSame(40.41480397411152, $data->items[0]->getLat());
+		$this->assertSame(-3.700791339178318, $data->items[0]->getLon());
 
 
 		$data = $this->api->reverseGeocode(0, 0);
