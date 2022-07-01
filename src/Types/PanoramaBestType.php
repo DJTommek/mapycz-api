@@ -58,7 +58,7 @@ class PanoramaBestType extends Type
 	 */
 	public function getLink(): string
 	{
-		$url = 'https://en.mapy.cz/zakladni';
+		$url = 'https://mapy.cz/zakladni';
 		$queryParameters = [
 			'x' => $this->getLon(),
 			'y' => $this->getLat(),
