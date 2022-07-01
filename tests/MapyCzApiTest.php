@@ -314,6 +314,7 @@ final class MapyCzApiTest extends TestCase
 		$this->assertEqualsWithDelta(27.56126704628921, $bestPanorama->distance, 0.0001);
 		$this->assertEqualsWithDelta(255.76090162311178, $bestPanorama->lookDir, 0.0001);
 		$this->assertSame(50, $bestPanorama->radius);
+		$this->assertSame('https://mapy.cz/zakladni?x=14.421499685654&y=50.087788829892&pano=1&pid=70102895&yaw=4.4638698311926', $bestPanorama->getLink());
 
 		// same panorama but limited radius
 		$this->assertNull($this->api->loadPanoramaGetBest(14.421127, 50.087726, 10));
