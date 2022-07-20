@@ -18,7 +18,7 @@ class Coords
 	/**
 	 * Convert encoded strings into coordinates.
 	 *
-	 * Rewritten from Javascript version SMap.Coords._parseNumber(arr, count)
+	 * Rewritten from Javascript version SMap.Coords.stringToCoords(str)
 	 * Returning array of coordinates representing raw y (latitude) and x (longitude) coordinates
 	 *
 	 * @return array<array<string,float>>
