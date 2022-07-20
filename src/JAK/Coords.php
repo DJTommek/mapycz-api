@@ -79,4 +79,56 @@ class Coords
 		}
 		return $result;
 	}
+
+	/**
+	 * Convert number into encoded characters
+	 *
+	 * Rewritten from Javascript version SMap.Coords._serializeNumber(delta, orig)
+	 */
+	public static function _serializeNumber($delta, $orig): string
+	{
+		$code = '';
+		if ($delta >= -1024 && $delta < 1024) {
+			$code .= self::_ALPHABET[$delta + 1024 >> 6];
+			$code .= self::_ALPHABET[$delta + 1024 & 63];
+		} else if ($delta >= -32768 && $delta < 32768) {
+			$value = 131072 | $delta + 32768;
+			$code .= self::_ALPHABET[$value >> 12 & 63];
+			$code .= self::_ALPHABET[$value >> 6 & 63];
+			$code .= self::_ALPHABET[$value & 63];
+		} else {
+			$value = 805306368 | $orig & 268435455;
+			$code .= self::_ALPHABET[$value >> 24 & 63];
+			$code .= self::_ALPHABET[$value >> 18 & 63];
+			$code .= self::_ALPHABET[$value >> 12 & 63];
+			$code .= self::_ALPHABET[$value >> 6 & 63];
+			$code .= self::_ALPHABET[$value & 63];
+		}
+		return $code;
+	}
+
+	/**
+	 * Convert multiple coordinates from XY into encoded string
+	 *
+	 * Rewritten from Javascript version SMap.Coords.coordsToString(arr)
+	 *
+	 * @param array<array<float>> $multipleCoordinates eg. [[14.5, 50.1], [14.1, 51.9]]
+	 */
+	public static function coordsToString(array $multipleCoordinates): string
+	{
+		$ox = 0;
+		$oy = 0;
+		$result = '';
+		foreach ($multipleCoordinates as $coords) {
+			$x = round(($coords[0] + 180) * (1 << 28) / 360);
+			$y = round(($coords[1] + 90) * (1 << 28) / 180);
+			$dx = $x - $ox;
+			$dy = $y - $oy;
+			$result .= self::_serializeNumber($dx, $x);
+			$result .= self::_serializeNumber($dy, $y);
+			$ox = $x;
+			$oy = $y;
+		}
+		return $result;
+	}
 }
