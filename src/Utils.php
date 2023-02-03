@@ -39,4 +39,15 @@ class Utils
 		}
 		return $body;
 	}
+
+	/**
+	 * Polyfil for PHP 8 str_starts_with
+	 *
+	 * @link https://www.php.net/manual/en/function.str-starts-with.php
+	 * @link https://github.com/symfony/polyfill/blob/e2fbb83eac51707a8ccab28559f8dc6b12a4ec5a/src/Php80/Php80.php#L96
+	 */
+	public static function str_starts_with(string $haystack, string $needle): bool
+	{
+		return strncmp($haystack, $needle, \strlen($needle)) === 0;
+	}
 }

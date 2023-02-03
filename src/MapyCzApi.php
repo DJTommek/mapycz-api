@@ -93,9 +93,14 @@ class MapyCzApi
 		} catch (MapyCzApiException $exception) {
 			if ($exception->getCode() === 404) {
 				return null;
-			} else {
-				throw $exception;
 			}
+
+			if (Utils::str_starts_with($exception->getMessage(), 'No best panorama for point')) {
+				// Full example: 'No best panorama for point 50.93E 35.82N and radius 50.00m found!'
+				return null;
+			}
+
+			throw $exception;
 		}
 	}
 
