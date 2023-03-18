@@ -7,6 +7,8 @@ use DJTommek\MapyCzApi\Types\PanoramaNeighbourType;
 use DJTommek\MapyCzApi\Types\PanoramaType;
 use DJTommek\MapyCzApi\Types\PlaceType;
 use DJTommek\MapyCzApi\Types\ReverseGeocodeType;
+use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Client\ClientInterface;
 
 class MapyCzApi
 {
@@ -31,7 +33,32 @@ class MapyCzApi
 	public const SOURCE_FOTO = 'foto';
 	public const SOURCE_OSM = 'osm';
 
-	/** @throws MapyCzApiException|\JsonException */
+	private ?ClientInterface $client = null;
+
+	private function getClient(): ClientInterface
+	{
+		if ($this->client === null) {
+			$this->client = new \GuzzleHttp\Client();
+		}
+		return $this->client;
+	}
+
+	/**
+	 * Set custom client, which will be used to send requests, otherwise default \GuzzleHttp\Client will be used.
+	 * Also you can set custom instance of \GuzzleHttp\Client with your own options, eg with updated timeouts.
+	 * See tests for example.
+	 */
+	public function setClient(ClientInterface $client): self
+	{
+		$this->client = $client;
+		return $this;
+	}
+
+	/**
+	 * @throws ClientExceptionInterface
+	 * @throws MapyCzApiException
+	 * @throws \JsonException
+	 */
 	public function loadPoiDetails(string $source, int $id): PlaceType
 	{
 		$xmlBody = $this->generateXmlRequest(self::API_METHOD_DETAIL, $source, $id);
@@ -39,7 +66,11 @@ class MapyCzApi
 		return PlaceType::cast($response->poi);
 	}
 
-	/** @throws MapyCzApiException|\JsonException */
+	/**
+	 * @throws ClientExceptionInterface
+	 * @throws MapyCzApiException
+	 * @throws \JsonException
+	 */
 	public function loadPanoramaDetails(int $id): PanoramaType
 	{
 		$body = $this->generateXmlRequest(self::API_METHOD_DETAIL, $id);
@@ -49,7 +80,9 @@ class MapyCzApi
 
 	/**
 	 * @return PanoramaNeighbourType[]
-	 * @throws MapyCzApiException|\JsonException
+	 * @throws ClientExceptionInterface
+	 * @throws MapyCzApiException
+	 * @throws \JsonException
 	 */
 	public function loadPanoramaNeighbours(int $id): array
 	{
@@ -67,7 +100,14 @@ class MapyCzApi
 		return ReverseGeocodeType::cast($response);
 	}
 
-	/** @throws MapyCzApiException|\JsonException */
+	/**
+	 * @TODO set array shape for parameter $options
+	 * @TODO set array shape for return
+	 *
+	 * @throws ClientExceptionInterface
+	 * @throws MapyCzApiException
+	 * @throws \JsonException
+	 */
 	public function loadLookupBox(float $lon1, float $lat1, float $lon2, float $lat2, $options): array
 	{
 		$xmlBody = $this->generateXmlRequest(self::API_METHOD_LOOKUP_BOX, $lon1, $lat1, $lon2, $lat2, $options);
@@ -80,9 +120,11 @@ class MapyCzApi
 	}
 
 	/**
-	 * Try to find best suitable panorama for given coordinates or null if no suitable Panorama Was found.
+	 * Try to find best suitable panorama for given coordinates. Returns null if no suitable Panorama was found.
 	 *
-	 * @throws MapyCzApiException|\JsonException
+	 * @throws ClientExceptionInterface
+	 * @throws MapyCzApiException
+	 * @throws \JsonException
 	 */
 	public function loadPanoramaGetBest(float $lon, float $lat, float $radius = 50): ?PanoramaBestType
 	{
@@ -104,19 +146,25 @@ class MapyCzApi
 		}
 	}
 
-	/** @throws MapyCzApiException|\JsonException */
+	/**
+	 * @throws MapyCzApiException
+	 * @throws ClientExceptionInterface
+	 * @throws \JsonException
+	 */
 	private function makeApiRequest(string $endpoint, \SimpleXMLElement $rawPostContent): \stdClass
 	{
-		$response = Utils::fileGetContents(self::API_URL . $endpoint, [
-			CURLOPT_POST => 1,
-			CURLOPT_POSTFIELDS => $rawPostContent->asXML(),
-			CURLOPT_HTTPHEADER => [
-				'Accept: application/json',
-				'Content-Type: text/xml',
-				'Referer: https://en.mapy.cz/',
+		$request = new \GuzzleHttp\Psr7\Request(
+			method: 'POST',
+			uri: self::API_URL . $endpoint,
+			headers: [
+				'Accept' => 'application/json',
+				'Content-Type' => 'text/xml',
 			],
-		]);
-		$content = \json_decode($response, false, 512, JSON_THROW_ON_ERROR);
+			body: $rawPostContent->asXML()
+		);
+		$response = $this->getClient()->sendRequest($request);
+		$body = (string)$response->getBody();
+		$content = \json_decode($body, false, 512, JSON_THROW_ON_ERROR);
 		if (isset($content->failure) && isset($content->failureMessage)) {
 			throw new MapyCzApiException($content->failureMessage, -501);
 		}
