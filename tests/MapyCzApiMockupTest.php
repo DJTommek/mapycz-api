@@ -195,6 +195,27 @@ final class MapyCzApiMockupTest extends TestCase
 		$this->api->loadLookupBox(14.099642, 49.997597, 14.367434, 50.102973, $options);
 	}
 
+	public function testLoadPanoramaGetBest1(): void
+	{
+		$this->setMockup('panoramaGetBest1.json');
+
+		$bestPanorama = $this->api->loadPanoramaGetBest(14.421127, 50.087726);
+		$this->assertSame(70102895, $bestPanorama->pid);
+		$this->assertEqualsWithDelta(255.76090162311178, $bestPanorama->azimuth, 0.0001);
+		$this->assertEqualsWithDelta(27.56126704628921, $bestPanorama->distance, 0.0001);
+		$this->assertEqualsWithDelta(255.76090162311178, $bestPanorama->lookDir, 0.0001);
+		$this->assertSame(50, $bestPanorama->radius);
+		$this->assertSame('https://mapy.cz/zakladni?x=14.421499685654&y=50.087788829892&pano=1&pid=70102895&yaw=4.4638698311926', $bestPanorama->getLink());
+	}
+
+	public function testLoadPanoramaGetBestError1(): void
+	{
+		$this->setMockup('panoramaGetBestError1.json');
+
+		$bestPanorama = $this->api->loadPanoramaGetBest(14.421127, 50.087726, 10);
+		$this->assertNull($bestPanorama);
+	}
+
 	/**
 	 * @return array{array{string, array{string, float, float}}}
 	 */

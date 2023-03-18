@@ -1,0 +1,39 @@
+{
+	"result": {
+		"azimuth": 255.76090162311183,
+		"distance": 27.56126704628921,
+		"lookDir": 255.76090162311183,
+		"mark": {
+			"alt": 238.98099999999999,
+			"lat": 50.087788829891814,
+			"lon": 14.421499685654315
+		},
+		"panInfo": {
+			"arrow": 1,
+			"createdAt": 1568449472,
+			"domainPrefix": "s",
+			"extra": {},
+			"fileMask": "zz_00042xx_daf6fyy",
+			"kappa": 162.58146667480469,
+			"mark": {
+				"alt": 238.98099999999999,
+				"lat": 50.087788829891814,
+				"lon": 14.421499685654315
+			},
+			"maxZoom": 1,
+			"omega": -1.5365879535675049,
+			"phi": 1.7266010046005249,
+			"pid": 70102895,
+			"provider": "stavinvex",
+			"tileHeight": 512,
+			"tileNumX": 16,
+			"tileNumY": 8,
+			"tileWidth": 512,
+			"uriPath": "054371"
+		},
+		"pid": 70102895,
+		"radius": 50
+	},
+	"status": 200,
+	"statusMessage": "OK"
+}
