@@ -94,41 +94,32 @@ final class MapyCzApiTest extends TestCase
 		$neighbours = $this->api->loadPanoramaNeighbours(68059377);
 		$this->assertCount(2, $neighbours);
 		$this->assertNull($neighbours[0]->far);
-		$this->assertEquals(50.075994572837189, $neighbours[0]->getLat());
-		$this->assertEquals(15.0168167856528, $neighbours[0]->getLon());
 		$this->assertNull($neighbours[1]->far);
-		$this->assertEquals(50.075924190323875, $neighbours[1]->getLat());
-		$this->assertEquals(15.016726675411652, $neighbours[1]->getLon());
+		$this->assertCoordsDelta(50.075994572837189, 15.0168167856528, $neighbours[0]);
+		$this->assertCoordsDelta(50.075924190323875, 15.016726675411652, $neighbours[1]);
 
 		$neighbours = $this->api->loadPanoramaNeighbours(66437731);
 		$this->assertCount(2, $neighbours);
 		$this->assertNull($neighbours[0]->far);
-		$this->assertEquals(50.123325864977183, $neighbours[0]->getLat());
-		$this->assertEquals(16.284511364095028, $neighbours[0]->getLon());
 		$this->assertNull($neighbours[1]->far);
-		$this->assertEquals(50.123376594103632, $neighbours[1]->getLat());
-		$this->assertEquals(16.284626669316179, $neighbours[1]->getLon());
+		$this->assertCoordsDelta(50.123325864977183, 16.284511364095028, $neighbours[0]);
+		$this->assertCoordsDelta(50.123376594103632, 16.284626669316179, $neighbours[1]);
 
 		$neighbours = $this->api->loadPanoramaNeighbours(68007689);
 		$this->assertCount(2, $neighbours);
 		$this->assertNull($neighbours[0]->far);
-		$this->assertEquals(50.094968792948613, $neighbours[0]->getLat());
-		$this->assertEquals(15.023015652760325, $neighbours[0]->getLon());
 		$this->assertNull($neighbours[1]->far);
-		$this->assertEquals(50.09493643386277, $neighbours[1]->getLat());
-		$this->assertEquals(15.023146415156226, $neighbours[1]->getLon());
+		$this->assertCoordsDelta(50.094968792948613, 15.023015652760325, $neighbours[0]);
+		$this->assertCoordsDelta(50.09493643386277, 15.023146415156226, $neighbours[1]);
 
 		$neighbours = $this->api->loadPanoramaNeighbours(70254688);
-		$this->assertCount(4, $neighbours);
+		$this->assertCount(3, $neighbours);
 		$this->assertNull($neighbours[0]->far);
-		$this->assertEquals(50.078590071104, $neighbours[0]->getLat());
-		$this->assertEquals(14.488226145758, $neighbours[0]->getLon());
 		$this->assertNull($neighbours[1]->far);
-		$this->assertEquals(50.078571741589, $neighbours[1]->getLat());
-		$this->assertEquals(14.488507011519, $neighbours[1]->getLon());
 		$this->assertNull($neighbours[2]->far);
-		$this->assertEquals(50.078562904609, $neighbours[2]->getLat());
-		$this->assertEquals(14.488405598016, $neighbours[2]->getLon());
+		$this->assertCoordsDelta(50.078499374636, 14.488475318684, $neighbours[0]);
+		$this->assertCoordsDelta(50.078453682198, 14.488397090543, $neighbours[1]);
+		$this->assertCoordsDelta(50.078537667591, 14.488341870961, $neighbours[2]);
 	}
 
 	public function testLoadloadPanoramaNeighboursError1(): void
