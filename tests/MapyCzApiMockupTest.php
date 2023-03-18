@@ -35,11 +35,26 @@ final class MapyCzApiMockupTest extends TestCase
 	public function testLoadPoiDetails(string $filename, array $expected): void
 	{
 		[$latExpected, $lonExpected] = $expected;
-		$mockJson = file_get_contents(__DIR__ . '/fixtures/' . $filename . '.json');
-		$mockedResponse = new \GuzzleHttp\Psr7\Response(200, body: $mockJson);
-		$this->mock->append($mockedResponse);
+		$this->setMockup($filename);
 		$place = $this->api->loadPoiDetails('mocked', 123456);
 		$this->assertCoordsDelta($latExpected, $lonExpected, $place);
+	}
+
+	public function testLoadPoiDetailsError1(): void
+	{
+		$this->setMockup('poiDetailsNotFound1');
+		$this->expectException(\DJTommek\MapyCzApi\MapyCzApiException::class);
+		$this->expectExceptionMessage('Not found!');
+		$this->api->loadPoiDetails('base', 1234);
+	}
+
+
+	public function testLoadPoiDetailsError2(): void
+	{
+		$this->setMockup('poiDetailsNotFound2');
+		$this->expectException(\DJTommek\MapyCzApi\MapyCzApiException::class);
+		$this->expectExceptionMessage('Not Found');
+		$this->api->loadPoiDetails('osm', 99999999999);
 	}
 
 	/**
@@ -53,5 +68,13 @@ final class MapyCzApiMockupTest extends TestCase
 			['poiDetailsFirm1', [50.084747314453125, 14.454011917114258]],
 			['poiDetailsOsm1', [-45.870288951383145, -67.50777737380889]],
 		];
+	}
+
+	private function setMockup(string $filename): void
+	{
+		$mockJson = file_get_contents(__DIR__ . '/fixtures/' . $filename . '.json');
+		assert(is_string($mockJson));
+		$mockedResponse = new \GuzzleHttp\Psr7\Response(200, body: $mockJson);
+		$this->mock->append($mockedResponse);
 	}
 }
