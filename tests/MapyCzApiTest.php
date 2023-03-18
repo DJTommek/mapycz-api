@@ -6,55 +6,46 @@ use PHPUnit\Framework\TestCase;
 
 final class MapyCzApiTest extends TestCase
 {
-	/** @var MapyCzApi */
-	private $api;
+	private MapyCzApi $api;
 
 	public function setUp(): void
 	{
 		$this->api = new MapyCzApi();
 	}
 
-	public function testLoadPoiDetails(): void
+	private function assertCoordsDelta(float $latExpected, float $lonExpected, $object): void
 	{
-		$place = $this->api->loadPoiDetails('base', 2107710);
-		$this->assertEquals(50.132131399999999, $place->getLat());
-		$this->assertEquals(16.313767200000001, $place->getLon());
+		$latReal = $object->getLat();
+		$lonReal = $object->getLon();
+		$this->assertEqualsWithDelta($latExpected, $latReal, 0.00001, sprintf('Failed asserting that latitude %s matches expected %s', $latReal, $latExpected));
+		$this->assertEqualsWithDelta($lonExpected, $lonReal, 0.00001, sprintf('Failed asserting that longitude %s matches expected %s', $lonReal, $lonExpected));
+	}
 
-		$place = $this->api->loadPoiDetails('pubt', 15308193);
-		$this->assertEquals(50.084007263183594, $place->getLat());
-		$this->assertEquals(14.440339088439941, $place->getLon());
+	/**
+	 * @dataProvider poiDetailsProvider
+	 */
+	public function testLoadPoiDetails(array $parameters, array $expected): void
+	{
+		$place = $this->api->loadPoiDetails(...$parameters);
+		$this->assertCoordsDelta($expected[0], $expected[1], $place);
+	}
 
-		$place = $this->api->loadPoiDetails('firm', 468797);
-		$this->assertEquals(50.084747314453125, $place->getLat());
-		$this->assertEquals(14.454011917114258, $place->getLon());
+	public function poiDetailsProvider(): array
+	{
+		return [
+			[['base', 2107710], [50.1, 16.313767200000001]],
+			[['base', 2107710], [50.132131399999999, 16.313767200000001]],
+			[['pubt', 15308193], [50.084007263183594, 14.440339088439941]],
+			[['firm', 468797], [50.084747314453125, 14.454011917114258]],
+			[['traf', 15659817], [50.093311999999997, 14.455159]],
+			[['foto', 1080344], [49.993611111100002, 14.205277777799999]],
+			[['base', 1833337], [50.1066236375, 14.3662025489]],
+			[['osm', 112448327], [49.444980051414653, 11.109054822801225]],
+			[['osm', 1000536418], [54.766918429542365, -101.8737286610846]],
+			[['osm', 1040985945], [-18.917167018396825, 47.53575634915991]],
+			[['osm', 17164289], [-45.870288951383145, -67.50777737380889]],
+		];
 
-		$place = $this->api->loadPoiDetails('traf', 15659817);
-		$this->assertEquals(50.093311999999997, $place->getLat());
-		$this->assertEquals(14.455159, $place->getLon());
-
-		$place = $this->api->loadPoiDetails('foto', 1080344);
-		$this->assertEquals(49.993611111100002, $place->getLat());
-		$this->assertEquals(14.205277777799999, $place->getLon());
-
-		$place = $this->api->loadPoiDetails('base', 1833337);
-		$this->assertEquals(50.1066236375, $place->getLat());
-		$this->assertEquals(14.3662025489, $place->getLon());
-
-		$place = $this->api->loadPoiDetails('osm', 112448327);
-		$this->assertEquals(49.444980051414653, $place->getLat());
-		$this->assertEquals(11.109054822801225, $place->getLon());
-
-		$place = $this->api->loadPoiDetails('osm', 1000536418);
-		$this->assertEquals(54.766918429542365, $place->getLat());
-		$this->assertEquals(-101.8737286610846, $place->getLon());
-
-		$place = $this->api->loadPoiDetails('osm', 1040985945);
-		$this->assertEquals(-18.917167018396825, $place->getLat());
-		$this->assertEquals(47.53575634915991, $place->getLon());
-
-		$place = $this->api->loadPoiDetails('osm', 17164289);
-		$this->assertEquals(-45.870288951383145, $place->getLat());
-		$this->assertEquals(-67.50777737380889, $place->getLon());
 	}
 
 	public function testLoadPoiDetailsError1(): void
@@ -71,23 +62,24 @@ final class MapyCzApiTest extends TestCase
 		$this->api->loadPoiDetails('invalid-source', 2107710);
 	}
 
-	public function testLoadPanoramaDetails(): void
+	/**
+	 * @dataProvider panoramaDetailsProvider
+	 */
+	public function testLoadPanoramaDetails(array $params, array $expected): void
 	{
-		$place = $this->api->loadPanoramaDetails(68059377);
-		$this->assertEquals(50.075959341112629, $place->getLat());
-		$this->assertEquals(15.016771758436011, $place->getLon());
+		$panoramaId = $params[0];
+		$place = $this->api->loadPanoramaDetails($panoramaId);
+		$this->assertCoordsDelta($expected[0], $expected[1], $place);
+	}
 
-		$place = $this->api->loadPanoramaDetails(66437731);
-		$this->assertEquals(50.123351288859986, $place->getLat());
-		$this->assertEquals(16.284569347024281, $place->getLon());
-
-		$place = $this->api->loadPanoramaDetails(68007689);
-		$this->assertEquals(50.094952509980317, $place->getLat());
-		$this->assertEquals(15.023081103835427, $place->getLon());
-
-		$place = $this->api->loadPanoramaDetails(70254688);
-		$this->assertEquals(50.078495759444145, $place->getLat());
-		$this->assertEquals(14.488369277220368, $place->getLon());
+	public function panoramaDetailsProvider(): array
+	{
+		return [
+			[[68059377], [50.075959341112629, 15.016771758436011]],
+			[[66437731], [50.123351288859986, 16.284569347024281]],
+			[[68007689], [50.094952509980317, 15.023081103835427]],
+			[[70254688], [50.078495759444145, 14.488369277220368]],
+		];
 	}
 
 	public function testLoadPanoramaDetailsError1(): void
