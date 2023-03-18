@@ -4,7 +4,7 @@ use DJTommek\MapyCzApi\MapyCzApi;
 use DJTommek\MapyCzApi\MapyCzApiException;
 use PHPUnit\Framework\TestCase;
 
-final class MapyCzApiTest extends TestCase
+final class MapyCzApiRealTest extends TestCase
 {
 	private MapyCzApi $api;
 
@@ -33,7 +33,6 @@ final class MapyCzApiTest extends TestCase
 	public function poiDetailsProvider(): array
 	{
 		return [
-			[['base', 2107710], [50.1, 16.313767200000001]],
 			[['base', 2107710], [50.132131399999999, 16.313767200000001]],
 			[['pubt', 15308193], [50.084007263183594, 14.440339088439941]],
 			[['firm', 468797], [50.084747314453125, 14.454011917114258]],

@@ -1,0 +1,141 @@
+{
+	"poi": {
+		"desc": {
+			"text": "Díky své výjimečnosti patří tento strom mezi chráněné památné stromy České republiky."
+		},
+		"description": "Díky své výjimečnosti patří tento strom mezi chráněné památné stromy České republiky.",
+		"descriptionLang": "cs",
+		"extend": {
+			"_s": "wikipedia",
+			"address": {
+				"city": "Vamberk",
+				"country": "Česko",
+				"country_iso": "203",
+				"districts": [
+					"okres Rychnov nad Kněžnou"
+				],
+				"poi": "Lípa v Pekle",
+				"regions": [
+					"Královéhradecký kraj"
+				],
+				"subregions": [
+					"Peklo"
+				],
+				"uniqueLevel": 0
+			},
+			"keyvalue": {
+				"label": "Další informace",
+				"value": [
+					{
+						"key": "Druh stromu",
+						"value": "lípa srdčitá"
+					},
+					{
+						"key": "Obvod kmene",
+						"value": "401 cm"
+					},
+					{
+						"key": "Výška stromu",
+						"value": "30 m"
+					}
+				]
+			},
+			"link": {
+				"label": "Další odkazy",
+				"value": [
+					{
+						"text": "Informace o parcele v Katastru nemovitostí",
+						"url": "https://nahlizenidokn.cuzk.cz/MapaIdentifikace.aspx?l=KN&x=-607872&y=-1054844"
+					}
+				]
+			},
+			"poi": {
+				"aliases": {
+					"cs": [
+						"Lípa v Pekle"
+					]
+				},
+				"description": {
+					"descriptionLang": "cs",
+					"text": "Díky své výjimečnosti patří tento strom mezi chráněné památné stromy České republiky."
+				},
+				"keyval": [
+					{
+						"druh": {
+							"label": "lípa malolistá",
+							"type": "link",
+							"value": "https://cs.wikipedia.org/wiki/Lípa malolistá"
+						}
+					}
+				],
+				"name": "Lípa v Pekle"
+			},
+			"wikidata_id": "Q26789580",
+			"wikidata_priority": 1
+		},
+		"extendAttrs": [],
+		"gallery": [],
+		"id": 2107710,
+		"mark": {
+			"inaccurate": false,
+			"lat": 50.132131399999999,
+			"lon": 16.313767200000001
+		},
+		"multiTitle": [
+			"Lípa v Pekle",
+			"Vamberk - Peklo",
+			"Česko"
+		],
+		"origin": "Agentury ochrany přírody a krajiny ČR",
+		"originalId": "104971",
+		"poiTypeAltitude": false,
+		"poilink": {
+			"label": "Související body",
+			"value": []
+		},
+		"regionEntityId": 8144,
+		"regionEntityType": "ward",
+		"review": {
+			"caption": "Hodnocení",
+			"review_rating": 0,
+			"review_rating_caption": "Průměrné",
+			"review_rating_stars": 0,
+			"review_weight": 0,
+			"structured_rating": [],
+			"target_stars": 4,
+			"total": 0,
+			"type": "generic",
+			"use_rating": false,
+			"use_total": true
+		},
+		"sequenceDisplay": true,
+		"source": "base",
+		"title": "Lípa v Pekle",
+		"titleVars": {
+			"locationMain1": "Vamberk - Peklo, Česko",
+			"locationMain2": [
+				"Vamberk - Peklo",
+				"Česko"
+			],
+			"locationMain3": [
+				"Vamberk - Peklo",
+				"Česko"
+			],
+			"locationSub1": "",
+			"locationSub2": [],
+			"locationSub3": [],
+			"specification": "Významný strom",
+			"titleMain": "Lípa v Pekle",
+			"titleMapMain": "Lípa v Pekle",
+			"titleMapSub": "",
+			"titleSmartMain": "Lípa v Pekle",
+			"titleSmartSub": "",
+			"titleSub": ""
+		},
+		"typeAlias": "",
+		"typeId": 1445,
+		"typeName": "Významný strom"
+	},
+	"status": 200,
+	"statusMessage": "Ok"
+}
