@@ -57,6 +57,13 @@ final class MapyCzApiRealTest extends TestCase
 	public function testLoadPoiDetailsError2(): void
 	{
 		$this->expectException(MapyCzApiException::class);
+		$this->expectExceptionMessage('Not Found');
+		$this->api->loadPoiDetails('osm', 99999999999);
+	}
+
+	public function testLoadPoiDetailsError3(): void
+	{
+		$this->expectException(MapyCzApiException::class);
 		$this->expectExceptionMessage('Cannot find any server handling source invalid-source');
 		$this->api->loadPoiDetails('invalid-source', 2107710);
 	}
