@@ -57,6 +57,58 @@ final class MapyCzApiMockupTest extends TestCase
 		$this->api->loadPoiDetails('osm', 99999999999);
 	}
 
+	public function testLoadPanoramaNeighbours1(): void
+	{
+		$this->setMockup('panoramaNeighbours1');
+		$neighbours = $this->api->loadPanoramaNeighbours(68059377);
+		$this->assertCount(2, $neighbours);
+
+		$this->assertInstanceOf(\DJTommek\MapyCzApi\Types\PanoramaNeighbourType::class, $neighbours[0]);
+		$neighbours[0]->angle = 39.423730238676058;
+		$this->assertNull($neighbours[0]->far);
+		$this->assertInstanceOf(\DJTommek\MapyCzApi\Types\PanoramaType::class, $neighbours[0]->near);
+		$this->assertCoordsDelta(50.075994572837196, 15.0168167856528, $neighbours[0]);
+
+		$this->assertInstanceOf(\DJTommek\MapyCzApi\Types\PanoramaNeighbourType::class, $neighbours[1]);
+		$neighbours[1]->angle = 219.52328536981966;
+		$this->assertNull($neighbours[1]->far);
+		$this->assertInstanceOf(\DJTommek\MapyCzApi\Types\PanoramaType::class, $neighbours[1]->near);
+		$this->assertCoordsDelta(50.075924190323875, 15.016726675411652, $neighbours[1]);
+	}
+
+	public function testLoadPanoramaNeighbours2(): void
+	{
+		$this->setMockup('panoramaNeighbours2');
+		$neighbours = $this->api->loadPanoramaNeighbours(70254688);
+		$this->assertCount(3, $neighbours);
+
+		$this->assertInstanceOf(\DJTommek\MapyCzApi\Types\PanoramaNeighbourType::class, $neighbours[0]);
+		$neighbours[0]->angle = 87.359772499162261;
+		$this->assertNull($neighbours[0]->far);
+		$this->assertInstanceOf(\DJTommek\MapyCzApi\Types\PanoramaType::class, $neighbours[0]->near);
+		$this->assertCoordsDelta(50.078499374636, 14.488475318684, $neighbours[0]);
+
+		$this->assertInstanceOf(\DJTommek\MapyCzApi\Types\PanoramaNeighbourType::class, $neighbours[1]);
+		$neighbours[1]->angle = 157.34892725846578;
+		$this->assertNull($neighbours[1]->far);
+		$this->assertInstanceOf(\DJTommek\MapyCzApi\Types\PanoramaType::class, $neighbours[1]->near);
+		$this->assertCoordsDelta(50.078453682198, 14.488397090543, $neighbours[1]);
+
+		$this->assertInstanceOf(\DJTommek\MapyCzApi\Types\PanoramaNeighbourType::class, $neighbours[2]);
+		$neighbours[2]->angle = 337.56931566125115;
+		$this->assertNull($neighbours[2]->far);
+		$this->assertInstanceOf(\DJTommek\MapyCzApi\Types\PanoramaType::class, $neighbours[2]->near);
+		$this->assertCoordsDelta(50.078537667591, 14.488341870961, $neighbours[2]);
+	}
+
+	public function testLoadPanoramaNeighboursError1(): void
+	{
+		$this->setMockup('panoramaNeighboursError1');
+		$this->expectException(\DJTommek\MapyCzApi\MapyCzApiException::class);
+		$this->expectExceptionMessage('Panorama with id \'99999999999\' not found!');
+		$this->api->loadPanoramaNeighbours(99999999999);
+	}
+
 	/**
 	 * @return array{array{string, array{float, float}}}
 	 */

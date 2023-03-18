@@ -1,0 +1,64 @@
+{
+	"result": {
+		"count": 2,
+		"neighbours": [
+			{
+				"angle": 39.423730238676058,
+				"far": {},
+				"near": {
+					"arrow": 1,
+					"createdAt": 1540039216,
+					"domainPrefix": "s",
+					"extra": {},
+					"fileMask": "zz_00040xx_e80e3yy",
+					"kappa": 37.838871002197266,
+					"mark": {
+						"alt": 246.06800000000001,
+						"lat": 50.075994572837196,
+						"lon": 15.0168167856528
+					},
+					"maxZoom": 1,
+					"omega": 0.71848499774932861,
+					"phi": 1.064749002456665,
+					"pid": 68059363,
+					"provider": "stavinvex",
+					"tileHeight": 512,
+					"tileNumX": 16,
+					"tileNumY": 8,
+					"tileWidth": 512,
+					"uriPath": "050570"
+				}
+			},
+			{
+				"angle": 219.52328536981966,
+				"far": {},
+				"near": {
+					"arrow": 1,
+					"createdAt": 1540039215,
+					"domainPrefix": "s",
+					"extra": {},
+					"fileMask": "zz_00040xx_e80ebyy",
+					"kappa": 37.761478424072266,
+					"mark": {
+						"alt": 246.08699999999999,
+						"lat": 50.075924190323875,
+						"lon": 15.016726675411652
+					},
+					"maxZoom": 1,
+					"omega": 0.046898998320102692,
+					"phi": -0.028914999216794968,
+					"pid": 68059371,
+					"provider": "stavinvex",
+					"tileHeight": 512,
+					"tileNumX": 16,
+					"tileNumY": 8,
+					"tileWidth": 512,
+					"uriPath": "050570"
+				}
+			}
+		],
+		"pid": 68059377
+	},
+	"status": 200,
+	"statusMessage": "OK"
+}

@@ -1,0 +1,91 @@
+{
+	"result": {
+		"count": 3,
+		"neighbours": [
+			{
+				"angle": 87.359772499162261,
+				"far": {},
+				"near": {
+					"arrow": 1,
+					"createdAt": 1567783854,
+					"domainPrefix": "s",
+					"extra": {},
+					"fileMask": "zz_00043xx_007dcyy",
+					"kappa": -1.9622499942779541,
+					"mark": {
+						"alt": 290.58100000000002,
+						"lat": 50.07849937463579,
+						"lon": 14.488475318684442
+					},
+					"maxZoom": 1,
+					"omega": 2.1191599369049072,
+					"phi": -0.17193800210952759,
+					"pid": 70256604,
+					"provider": "stavinvex",
+					"tileHeight": 512,
+					"tileNumX": 16,
+					"tileNumY": 8,
+					"tileWidth": 512,
+					"uriPath": "054643"
+				}
+			},
+			{
+				"angle": 157.34892725846578,
+				"far": {},
+				"near": {
+					"arrow": 1,
+					"createdAt": 1567783941,
+					"domainPrefix": "s",
+					"extra": {},
+					"fileMask": "zz_00043xx_0002cyy",
+					"kappa": 155.72471618652344,
+					"mark": {
+						"alt": 290.392,
+						"lat": 50.078453682198258,
+						"lon": 14.488397090543286
+					},
+					"maxZoom": 1,
+					"omega": 2.9788808822631836,
+					"phi": -0.58771002292633057,
+					"pid": 70254636,
+					"provider": "stavinvex",
+					"tileHeight": 512,
+					"tileNumX": 16,
+					"tileNumY": 8,
+					"tileWidth": 512,
+					"uriPath": "054643"
+				}
+			},
+			{
+				"angle": 337.56931566125115,
+				"far": {},
+				"near": {
+					"arrow": 1,
+					"createdAt": 1567783939,
+					"domainPrefix": "s",
+					"extra": {},
+					"fileMask": "zz_00043xx_00068yy",
+					"kappa": 156.18359375,
+					"mark": {
+						"alt": 290.73200000000003,
+						"lat": 50.078537667591313,
+						"lon": 14.488341870960509
+					},
+					"maxZoom": 1,
+					"omega": 1.5488059520721436,
+					"phi": -1.276358962059021,
+					"pid": 70254696,
+					"provider": "stavinvex",
+					"tileHeight": 512,
+					"tileNumX": 16,
+					"tileNumY": 8,
+					"tileWidth": 512,
+					"uriPath": "054643"
+				}
+			}
+		],
+		"pid": 70254688
+	},
+	"status": 200,
+	"statusMessage": "OK"
+}
