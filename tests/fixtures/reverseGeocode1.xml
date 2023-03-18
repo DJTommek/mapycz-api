@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rgeocode label="Staroměstské náměstí 606/11, Praha, 110 00, Hlavní město Praha" status="200" message="Ok">
+    <item id="8939832" name="Staroměstské náměstí 606/11" source="addr" type="addr" x="14.421563306025112" y="50.08801489569467" />
+    <item id="121933" name="Staroměstské náměstí" source="stre" type="stre" x="14.420509351946272" y="50.087770820363154" />
+    <item id="87" name="Praha 1" source="quar" type="quar" x="14.424132200124076" y="50.08783679317711" />
+    <item id="13674" name="Staré Město" source="ward" type="ward" x="14.417781898902357" y="50.084551750804636" />
+    <item id="3468" name="Praha" source="muni" type="muni" x="14.4341412988" y="50.0835493857" />
+    <item id="47" name="Okres Hlavní město Praha" source="dist" type="dist" x="14.466000012775831" y="50.066789200167186" />
+    <item id="10" name="Hlavní město Praha" source="regi" type="regi" x="14.466" y="50.066789" />
+    <item id="112" name="Česko" source="coun" type="coun" x="15.338411" y="49.742858" />
+</rgeocode>

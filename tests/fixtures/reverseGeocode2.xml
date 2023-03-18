@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rgeocode label="Plaza de Santa Ana" status="200" message="Ok">
+    <item id="1023817397" name="Plaza de Santa Ana" source="osm" type="osms" x="-3.700791339178318" y="40.41480397411152" />
+    <item id="112770" name="Centro" source="osm" type="osmw" x="-3.7035825153784856" y="40.41670465447513" />
+    <item id="1018294688" name="Cortes" source="osm" type="osmw" x="-3.697584257829448" y="40.414779079859066" />
+    <item id="34811795" name="Madrid" source="osm" type="osmm" x="-3.7035825153784856" y="40.41670465447513" />
+    <item id="11894" name="Área metropolitana de Madrid y Corredor del Henares" source="osm" type="osmr" x="-3.7035825153784856" y="40.41670465447513" />
+    <item id="724" name="España" source="osm" type="osmc" x="-3.2184253606553126" y="40.03027023183996" />
+    <item id="143117520" name="Iberia" source="osm" type="osma" x="-4.439894658031514" y="40.006249687484015" />
+</rgeocode>

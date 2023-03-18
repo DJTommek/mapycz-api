@@ -1,6 +1,9 @@
 <?php declare(strict_types=1);
 
 use DJTommek\MapyCzApi\MapyCzApi;
+use DJTommek\MapyCzApi\Types\ReverseGeocodeItemType;
+use DJTommek\MapyCzApi\Types\ReverseGeocodeType;
+use DJTommek\MapyCzApi\Types\Type;
 use PHPUnit\Framework\TestCase;
 
 final class MapyCzApiMockupTest extends TestCase
@@ -20,7 +23,7 @@ final class MapyCzApiMockupTest extends TestCase
 		$this->api->setClient($client);
 	}
 
-	private function assertCoordsDelta(float $latExpected, float $lonExpected, \DJTommek\MapyCzApi\Types\Type $object): void
+	private function assertCoordsDelta(float $latExpected, float $lonExpected, Type|ReverseGeocodeType|ReverseGeocodeItemType $object): void
 	{
 		$latReal = $object->getLat();
 		$lonReal = $object->getLon();
@@ -42,7 +45,7 @@ final class MapyCzApiMockupTest extends TestCase
 
 	public function testLoadPoiDetailsError1(): void
 	{
-		$this->setMockup('poiDetailsNotFound1');
+		$this->setMockup('poiDetailsNotFound1.json');
 		$this->expectException(\DJTommek\MapyCzApi\MapyCzApiException::class);
 		$this->expectExceptionMessage('Not found!');
 		$this->api->loadPoiDetails('base', 1234);
@@ -51,7 +54,7 @@ final class MapyCzApiMockupTest extends TestCase
 
 	public function testLoadPoiDetailsError2(): void
 	{
-		$this->setMockup('poiDetailsNotFound2');
+		$this->setMockup('poiDetailsNotFound2.json');
 		$this->expectException(\DJTommek\MapyCzApi\MapyCzApiException::class);
 		$this->expectExceptionMessage('Not Found');
 		$this->api->loadPoiDetails('osm', 99999999999);
@@ -59,7 +62,7 @@ final class MapyCzApiMockupTest extends TestCase
 
 	public function testLoadPanoramaNeighbours1(): void
 	{
-		$this->setMockup('panoramaNeighbours1');
+		$this->setMockup('panoramaNeighbours1.json');
 		$neighbours = $this->api->loadPanoramaNeighbours(68059377);
 		$this->assertCount(2, $neighbours);
 
@@ -78,7 +81,7 @@ final class MapyCzApiMockupTest extends TestCase
 
 	public function testLoadPanoramaNeighbours2(): void
 	{
-		$this->setMockup('panoramaNeighbours2');
+		$this->setMockup('panoramaNeighbours2.json');
 		$neighbours = $this->api->loadPanoramaNeighbours(70254688);
 		$this->assertCount(3, $neighbours);
 
@@ -103,10 +106,74 @@ final class MapyCzApiMockupTest extends TestCase
 
 	public function testLoadPanoramaNeighboursError1(): void
 	{
-		$this->setMockup('panoramaNeighboursError1');
+		$this->setMockup('panoramaNeighboursError1.json');
 		$this->expectException(\DJTommek\MapyCzApi\MapyCzApiException::class);
 		$this->expectExceptionMessage('Panorama with id \'99999999999\' not found!');
 		$this->api->loadPanoramaNeighbours(99999999999);
+	}
+
+	/**
+	 * @dataProvider reverseGeocodeProvider
+	 * @param array{float, float} $expected
+	 */
+	public function testReverseGeocode(string $filename, array $expected): void
+	{
+		[$expectedAddress, $expectedLat, $expectedLon] = $expected;
+		$this->setMockup($filename);
+
+		$data = $this->api->reverseGeocode(12.34, 12.34);
+		$this->assertSame(200, $data->status);
+		$this->assertSame('Ok', $data->message);
+		$this->assertSame($expectedAddress, $data->getAddress());
+		$this->assertCoordsDelta($expectedLat, $expectedLon, $data);
+	}
+
+	/**
+	 * More detailed test
+	 */
+	public function testReverseGeocode1(): void
+	{
+		$this->setMockup('reverseGeocode1.xml');
+		$data = $this->api->reverseGeocode(12.34, 12.34);
+
+		$this->assertSame(200, $data->status);
+		$this->assertSame('Ok', $data->message);
+
+		$this->assertCount(8, $data->items);
+
+		$item = $data->items[0];
+		$this->assertSame(8939832, $item->id);
+		$this->assertSame('Staroměstské náměstí 606/11', $item->name);
+		$this->assertSame('addr', $item->source);
+		$this->assertSame('addr', $item->type);
+		$this->assertCoordsDelta(50.08801489569467, 14.421563306025112, $item);
+
+		$item = $data->items[4];
+		$this->assertSame(3468, $item->id);
+		$this->assertSame('Praha', $item->name);
+		$this->assertSame('muni', $item->source);
+		$this->assertSame('muni', $item->type);
+		$this->assertCoordsDelta(50.0835493857, 14.4341412988, $item);
+	}
+
+	public function testLoadReverseGeocodeError1(): void
+	{
+		$this->setMockup('reverseGeocodeError1.xml');
+		$this->expectException(\DJTommek\MapyCzApi\MapyCzApiException::class);
+		$this->expectExceptionMessage('No data, are coordinates valid?');
+		$this->api->reverseGeocode(50.133923, 514.409660);
+	}
+
+	/**
+	 * @return array{array{string, array{string, float, float}}}
+	 */
+	public function reverseGeocodeProvider(): array
+	{
+		return [
+			['reverseGeocode1.xml', ['Staroměstské náměstí 606/11, Praha, 110 00, Hlavní město Praha', 50.08801489569467, 14.421563306025112]],
+			['reverseGeocode2.xml', ['Plaza de Santa Ana', 40.41480397411152, -3.700791339178318]],
+			['reverseGeocode3.xml', ['Atlantský oceán', 13.58192094506344, -38.32031204752161]],
+		];
 	}
 
 	/**
@@ -115,16 +182,16 @@ final class MapyCzApiMockupTest extends TestCase
 	public function poiDetailsProvider(): array
 	{
 		return [
-			['poiDetailsBase1', [50.132131399999999, 16.313767200000001]],
-			['poiDetailsPubt1', [50.084007263183594, 14.440339088439941]],
-			['poiDetailsFirm1', [50.084747314453125, 14.454011917114258]],
-			['poiDetailsOsm1', [-45.870288951383145, -67.50777737380889]],
+			['poiDetailsBase1.json', [50.132131399999999, 16.313767200000001]],
+			['poiDetailsPubt1.json', [50.084007263183594, 14.440339088439941]],
+			['poiDetailsFirm1.json', [50.084747314453125, 14.454011917114258]],
+			['poiDetailsOsm1.json', [-45.870288951383145, -67.50777737380889]],
 		];
 	}
 
 	private function setMockup(string $filename): void
 	{
-		$mockJson = file_get_contents(__DIR__ . '/fixtures/' . $filename . '.json');
+		$mockJson = file_get_contents(__DIR__ . '/fixtures/' . $filename);
 		assert(is_string($mockJson));
 		$mockedResponse = new \GuzzleHttp\Psr7\Response(200, body: $mockJson);
 		$this->mock->append($mockedResponse);
