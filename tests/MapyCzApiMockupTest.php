@@ -51,13 +51,21 @@ final class MapyCzApiMockupTest extends TestCase
 		$this->api->loadPoiDetails('base', 1234);
 	}
 
-
 	public function testLoadPoiDetailsError2(): void
 	{
 		$this->setMockup('poiDetailsNotFound2.json');
 		$this->expectException(\DJTommek\MapyCzApi\MapyCzApiException::class);
 		$this->expectExceptionMessage('Not Found');
 		$this->api->loadPoiDetails('osm', 99999999999);
+	}
+
+	public function testLoadPoiDetailsError3(): void
+	{
+		$this->setMockup('poiDetailsError3.json');
+		$this->expectException(\DJTommek\MapyCzApi\MapyCzApiException::class);
+		$this->expectExceptionMessage('Cannot find any server handling source invalid-source');
+		$this->expectExceptionCode(404);
+		$this->api->loadPoiDetails('invalid-source', 2107710);
 	}
 
 	public function testLoadPanoramaNeighbours1(): void
