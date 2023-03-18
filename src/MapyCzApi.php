@@ -181,8 +181,15 @@ class MapyCzApi
 		if (count($parameters) > 0) {
 			$url .= '?' . http_build_query($parameters);
 		}
-		$response = Utils::fileGetContents($url);
-		return new \SimpleXMLElement($response);
+
+		$request = new \GuzzleHttp\Psr7\Request(
+			method: 'GET',
+			uri: $url
+		);
+
+		$response = $this->getClient()->sendRequest($request);
+		$body = (string)$response->getBody();
+		return new \SimpleXMLElement($body);
 	}
 
 	/**
