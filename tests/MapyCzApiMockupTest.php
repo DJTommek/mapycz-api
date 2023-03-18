@@ -164,6 +164,37 @@ final class MapyCzApiMockupTest extends TestCase
 		$this->api->reverseGeocode(50.133923, 514.409660);
 	}
 
+	public function testLoadLookupBox(): void
+	{
+		$this->setMockup('loadLookupBox1.json');
+
+		$options = new stdClass();
+		$options->zoom = 13;
+		$options->mapsetId = 1;
+		$places = $this->api->loadLookupBox(14.099642, 49.997597, 14.367434, 50.102973, $options);
+		$this->assertCount(8, $places);
+
+		$place = $places[0];
+		$this->assertSame('Obchvat Jinočan - Okružní ulice', $place->title);
+		$this->assertCoordsDelta(50.033941076300003, 14.2750335485, $place);
+
+		$place = $places[3];
+		$this->assertSame('Letiště Václava Havla Praha (PRG)', $place->title);
+		$this->assertCoordsDelta(50.108395197299998, 14.2621233398, $place);
+	}
+
+	public function testLoadLookupBoxError1(): void
+	{
+		$this->setMockup('loadLookupBoxError1.json');
+
+		$this->expectException(\DJTommek\MapyCzApi\MapyCzApiException::class);
+		$this->expectExceptionCode(-502);
+		$this->expectExceptionMessage('Key "zoom" does not exist.');
+
+		$options = new stdClass();
+		$this->api->loadLookupBox(14.099642, 49.997597, 14.367434, 50.102973, $options);
+	}
+
 	/**
 	 * @return array{array{string, array{string, float, float}}}
 	 */

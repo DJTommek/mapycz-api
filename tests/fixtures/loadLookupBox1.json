@@ -1,0 +1,168 @@
+{
+	"poi": [
+		{
+			"closedRoute": false,
+			"description": "",
+			"extend": {
+				"poi": {
+					"name": "Obchvat Jinočan - Okružní ulice"
+				}
+			},
+			"geom": {
+				"data": [
+					"9g3EexX5GFgVnOWV8NhRxNMQNLpPgLUP0KnSNHWg-0fRfPQI668KS60JQ6dGKOdBw6QJH6xJkQGIng-JfW9YGAc"
+				],
+				"style": {
+					"opacity": "0",
+					"outlineOpacity": "0",
+					"width": "5"
+				},
+				"type": "linestring"
+			},
+			"geomInLookup": true,
+			"id": 5113636,
+			"mark": {
+				"lat": 50.033941076300003,
+				"lon": 14.2750335485
+			},
+			"multiMark": {},
+			"source": "traf",
+			"title": "Obchvat Jinočan - Okružní ulice",
+			"typeId": 2105,
+			"zoom": 16,
+			"zoomMax": 11
+		},
+		{
+			"geom": {
+				"data": [
+					"9gxtExXvOXgcxUUgOxQuPCNj"
+				],
+				"style": {
+					"opacity": "0",
+					"outlineOpacity": "0",
+					"width": "5"
+				},
+				"type": "linestring"
+			},
+			"geomInLookup": true,
+			"icon": {},
+			"id": 2136770,
+			"mark": {
+				"lat": 50.082639094199997,
+				"lon": 14.4022082984
+			},
+			"source": "base",
+			"title": "Lanová dráha na Petřín",
+			"typeId": 1015,
+			"zoom": 11,
+			"zoomMax": 0
+		},
+		{
+			"geom": {
+				"data": [
+					"9gxpsxXrtWOxgUr"
+				],
+				"style": {
+					"opacity": "0",
+					"outlineOpacity": "0",
+					"width": "5"
+				},
+				"type": "linestring"
+			},
+			"geomInLookup": true,
+			"icon": {},
+			"id": 2235754,
+			"mark": {
+				"lat": 50.070468847800001,
+				"lon": 14.3966870904
+			},
+			"source": "base",
+			"title": "Lanová dráha hotelu NH Praha",
+			"typeId": 1015,
+			"zoom": 11,
+			"zoomMax": 0
+		},
+		{
+			"geomInLookup": false,
+			"icon": {},
+			"id": 1703769,
+			"mark": {
+				"lat": 50.108395197299998,
+				"lon": 14.2621233398
+			},
+			"source": "base",
+			"title": "Letiště Václava Havla Praha (PRG)",
+			"typeId": 1016,
+			"zoom": 9,
+			"zoomMax": 0
+		},
+		{
+			"geomInLookup": false,
+			"icon": {
+				"1": "https://d48-a.sdn.cz/d_48/c_img_gX_F/MoTRP.png?fl=res,20,20,1",
+				"2": "https://d48-a.sdn.cz/d_48/c_img_gQ_F/pQfR6.png?fl=res,40,40,1",
+				"3": "https://d48-a.sdn.cz/d_48/c_img_gQ_F/pQfR6.png?fl=res,80,80,1"
+			},
+			"id": 13180248,
+			"mark": {
+				"lat": 50.062801361083984,
+				"lon": 14.233389854431152
+			},
+			"paid": 11,
+			"source": "firm",
+			"title": "Pivovarský dvůr Chýně - Restaurace",
+			"typeId": 5322,
+			"zoom": 11,
+			"zoomMax": 20
+		},
+		{
+			"geomInLookup": false,
+			"icon": {
+				"1": "https://d48-a.sdn.cz/d_48/c_img_H_H/lb6Bh8Z.png?fl=res,20,20,1",
+				"2": "https://d48-a.sdn.cz/d_48/c_img_H_H/rXaBh8b.png?fl=res,40,40,1",
+				"3": "https://d48-a.sdn.cz/d_48/c_img_H_H/rXaBh8b.png?fl=res,80,80,1"
+			},
+			"id": 221319,
+			"mark": {
+				"lat": 50.077423095703125,
+				"lon": 14.33927059173584
+			},
+			"paid": 10,
+			"source": "firm",
+			"title": "Kaufland",
+			"typeId": 5625,
+			"zoom": 10,
+			"zoomMax": 20
+		},
+		{
+			"geomInLookup": false,
+			"icon": {},
+			"id": 2228503,
+			"mark": {
+				"lat": 50.079853499267799,
+				"lon": 14.375833459703101
+			},
+			"source": "base",
+			"title": "Vysílač Strahov",
+			"typeId": 1126,
+			"zoom": 11,
+			"zoomMax": 0
+		},
+		{
+			"geomInLookup": false,
+			"id": 13137263,
+			"mark": {
+				"lat": 50.047321319580078,
+				"lon": 14.309512138366699
+			},
+			"paid": 11,
+			"source": "firm",
+			"title": "Thajma - thajské masáže",
+			"typeId": 5670,
+			"zoom": 11,
+			"zoomMax": 20
+		}
+	],
+	"status": 200,
+	"statusMessage": "OK"
+}
