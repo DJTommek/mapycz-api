@@ -102,8 +102,8 @@ class MapyCzApi
 
 	/**
 	 * @TODO set array shape for parameter $options
-	 * @TODO set array shape for return
 	 *
+	 * @return PlaceType[]
 	 * @throws ClientExceptionInterface
 	 * @throws MapyCzApiException
 	 * @throws \JsonException
