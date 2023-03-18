@@ -166,7 +166,7 @@ class MapyCzApi
 		$body = (string)$response->getBody();
 		$content = \json_decode($body, false, 512, JSON_THROW_ON_ERROR);
 		if (isset($content->failure) && isset($content->failureMessage)) {
-			throw new MapyCzApiException($content->failureMessage, -501);
+			throw new MapyCzApiException($content->failureMessage, $content->failure);
 		}
 		if ($content->status === 200 && mb_strtolower($content->statusMessage) === 'ok') {
 			return $content;
