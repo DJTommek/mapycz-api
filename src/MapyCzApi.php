@@ -95,7 +95,7 @@ class MapyCzApi
 				return null;
 			}
 
-			if (Utils::str_starts_with($exception->getMessage(), 'No best panorama for point')) {
+			if (str_starts_with($exception->getMessage(), 'No best panorama for point')) {
 				// Full example: 'No best panorama for point 50.93E 35.82N and radius 50.00m found!'
 				return null;
 			}
