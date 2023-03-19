@@ -4,6 +4,15 @@ use DJTommek\MapyCzApi\MapyCzApi;
 use DJTommek\MapyCzApi\MapyCzApiException;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Test with running real requests. Data on API are often changing so tests are not precise:
+ * - precision of coordinates checking is very low
+ * - check just chunk of output (eg not whole address, but part of it such as city name)
+ * - check type of output (eg address is string)
+ * - check at least minimum count (eg returning at least few POIs from lookup)
+ *
+ * @group request
+ */
 final class MapyCzApiRealTest extends TestCase
 {
 	private MapyCzApi $api;

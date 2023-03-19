@@ -6,6 +6,10 @@ use DJTommek\MapyCzApi\Types\ReverseGeocodeType;
 use DJTommek\MapyCzApi\Types\Type;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Test which are running mocked requests, which means not running actual requests to API servers, but faking requests
+ * by providing responses from pre-saved fixtures stored locally. All check should be as precise as possible
+ */
 final class MapyCzApiMockupTest extends TestCase
 {
 	private MapyCzApi $api;
