@@ -23,12 +23,12 @@ final class MapyCzApiMockupTest extends TestCase
 		$this->api->setClient($client);
 	}
 
-	private function assertCoordsDelta(float $latExpected, float $lonExpected, Type|ReverseGeocodeType|ReverseGeocodeItemType $object): void
+	private function assertCoords(float $latExpected, float $lonExpected, Type|ReverseGeocodeType|ReverseGeocodeItemType $object): void
 	{
 		$latReal = $object->getLat();
 		$lonReal = $object->getLon();
-		$this->assertEqualsWithDelta($latExpected, $latReal, 0.00001, sprintf('Failed asserting that latitude %s matches expected %s', $latReal, $latExpected));
-		$this->assertEqualsWithDelta($lonExpected, $lonReal, 0.00001, sprintf('Failed asserting that longitude %s matches expected %s', $lonReal, $lonExpected));
+		$this->assertSame($latExpected, $latReal, sprintf('Failed asserting that latitude %s matches expected %s', $latReal, $latExpected));
+		$this->assertSame($lonExpected, $lonReal, sprintf('Failed asserting that longitude %s matches expected %s', $lonReal, $lonExpected));
 	}
 
 	/**
@@ -40,7 +40,7 @@ final class MapyCzApiMockupTest extends TestCase
 		[$latExpected, $lonExpected] = $expected;
 		$this->setMockup($filename);
 		$place = $this->api->loadPoiDetails('mocked', 123456);
-		$this->assertCoordsDelta($latExpected, $lonExpected, $place);
+		$this->assertCoords($latExpected, $lonExpected, $place);
 	}
 
 	public function testLoadPoiDetailsError1(): void
@@ -78,13 +78,13 @@ final class MapyCzApiMockupTest extends TestCase
 		$neighbours[0]->angle = 39.423730238676058;
 		$this->assertNull($neighbours[0]->far);
 		$this->assertInstanceOf(\DJTommek\MapyCzApi\Types\PanoramaType::class, $neighbours[0]->near);
-		$this->assertCoordsDelta(50.075994572837196, 15.0168167856528, $neighbours[0]);
+		$this->assertCoords(50.075994572837196, 15.0168167856528, $neighbours[0]);
 
 		$this->assertInstanceOf(\DJTommek\MapyCzApi\Types\PanoramaNeighbourType::class, $neighbours[1]);
 		$neighbours[1]->angle = 219.52328536981966;
 		$this->assertNull($neighbours[1]->far);
 		$this->assertInstanceOf(\DJTommek\MapyCzApi\Types\PanoramaType::class, $neighbours[1]->near);
-		$this->assertCoordsDelta(50.075924190323875, 15.016726675411652, $neighbours[1]);
+		$this->assertCoords(50.075924190323875, 15.016726675411652, $neighbours[1]);
 	}
 
 	public function testLoadPanoramaNeighbours2(): void
@@ -97,19 +97,19 @@ final class MapyCzApiMockupTest extends TestCase
 		$neighbours[0]->angle = 87.359772499162261;
 		$this->assertNull($neighbours[0]->far);
 		$this->assertInstanceOf(\DJTommek\MapyCzApi\Types\PanoramaType::class, $neighbours[0]->near);
-		$this->assertCoordsDelta(50.078499374636, 14.488475318684, $neighbours[0]);
+		$this->assertCoords(50.07849937463579, 14.488475318684442, $neighbours[0]);
 
 		$this->assertInstanceOf(\DJTommek\MapyCzApi\Types\PanoramaNeighbourType::class, $neighbours[1]);
 		$neighbours[1]->angle = 157.34892725846578;
 		$this->assertNull($neighbours[1]->far);
 		$this->assertInstanceOf(\DJTommek\MapyCzApi\Types\PanoramaType::class, $neighbours[1]->near);
-		$this->assertCoordsDelta(50.078453682198, 14.488397090543, $neighbours[1]);
+		$this->assertCoords(50.078453682198258, 14.488397090543286, $neighbours[1]);
 
 		$this->assertInstanceOf(\DJTommek\MapyCzApi\Types\PanoramaNeighbourType::class, $neighbours[2]);
 		$neighbours[2]->angle = 337.56931566125115;
 		$this->assertNull($neighbours[2]->far);
 		$this->assertInstanceOf(\DJTommek\MapyCzApi\Types\PanoramaType::class, $neighbours[2]->near);
-		$this->assertCoordsDelta(50.078537667591, 14.488341870961, $neighbours[2]);
+		$this->assertCoords(50.078537667591313, 14.488341870960509, $neighbours[2]);
 	}
 
 	public function testLoadPanoramaNeighboursError1(): void
@@ -133,7 +133,7 @@ final class MapyCzApiMockupTest extends TestCase
 		$this->assertSame(200, $data->status);
 		$this->assertSame('Ok', $data->message);
 		$this->assertSame($expectedAddress, $data->getAddress());
-		$this->assertCoordsDelta($expectedLat, $expectedLon, $data);
+		$this->assertCoords($expectedLat, $expectedLon, $data);
 	}
 
 	/**
@@ -154,14 +154,14 @@ final class MapyCzApiMockupTest extends TestCase
 		$this->assertSame('Staroměstské náměstí 606/11', $item->name);
 		$this->assertSame('addr', $item->source);
 		$this->assertSame('addr', $item->type);
-		$this->assertCoordsDelta(50.08801489569467, 14.421563306025112, $item);
+		$this->assertCoords(50.08801489569467, 14.421563306025112, $item);
 
 		$item = $data->items[4];
 		$this->assertSame(3468, $item->id);
 		$this->assertSame('Praha', $item->name);
 		$this->assertSame('muni', $item->source);
 		$this->assertSame('muni', $item->type);
-		$this->assertCoordsDelta(50.0835493857, 14.4341412988, $item);
+		$this->assertCoords(50.0835493857, 14.4341412988, $item);
 	}
 
 	public function testLoadReverseGeocodeError1(): void
@@ -184,11 +184,11 @@ final class MapyCzApiMockupTest extends TestCase
 
 		$place = $places[0];
 		$this->assertSame('Obchvat Jinočan - Okružní ulice', $place->title);
-		$this->assertCoordsDelta(50.033941076300003, 14.2750335485, $place);
+		$this->assertCoords(50.033941076300003, 14.2750335485, $place);
 
 		$place = $places[3];
 		$this->assertSame('Letiště Václava Havla Praha (PRG)', $place->title);
-		$this->assertCoordsDelta(50.108395197299998, 14.2621233398, $place);
+		$this->assertCoords(50.108395197299998, 14.2621233398, $place);
 	}
 
 	public function testLoadLookupBoxError1(): void
