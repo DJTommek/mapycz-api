@@ -30,6 +30,8 @@
 	},
 	"scripts": {
 		"phpstan": "phpstan analyse src tests",
-		"test": "phpunit tests"
+		"test": "phpunit",
+		"test-quick": "phpunit --exclude-group request",
+		"test-request": "phpunit --group request"
 	}
 }
