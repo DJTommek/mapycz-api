@@ -153,6 +153,8 @@ class MapyCzApi
 	 */
 	private function makeApiRequest(string $endpoint, \SimpleXMLElement $rawPostContent): \stdClass
 	{
+		$xml = $rawPostContent->asXML();
+		assert(is_string($xml));
 		$request = new \GuzzleHttp\Psr7\Request(
 			method: 'POST',
 			uri: self::API_URL . $endpoint,
@@ -160,7 +162,7 @@ class MapyCzApi
 				'Accept' => 'application/json',
 				'Content-Type' => 'text/xml',
 			],
-			body: $rawPostContent->asXML()
+			body: $xml
 		);
 		$response = $this->getClient()->sendRequest($request);
 		$body = (string)$response->getBody();
@@ -168,14 +170,17 @@ class MapyCzApi
 		if (isset($content->failure) && isset($content->failureMessage)) {
 			throw new MapyCzApiException($content->failureMessage, $content->failure);
 		}
-		if ($content->status === 200 && mb_strtolower($content->statusMessage) === 'ok') {
+		if ($content->status === 200 && \mb_strtolower($content->statusMessage) === 'ok') {
 			return $content;
 		} else {
 			throw new MapyCzApiException($content->statusMessage, $content->status);
 		}
 	}
 
-	private function makePublicApiRequest(string $endpoint, array $parameters = []): \SimpleXMLElement
+	/**
+	 * @param array<string,mixed> $parameters
+	 */
+	public function makePublicApiRequest(string $endpoint, array $parameters = []): \SimpleXMLElement
 	{
 		$url = self::API_URL_PUBLIC . $endpoint;
 		if (count($parameters) > 0) {
