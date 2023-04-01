@@ -2,6 +2,9 @@
 
 Simple API wrapper for making requests to [Mapy.cz](https://mapy.cz/) created by the Czech company [Seznam.cz](https://seznam.cz/). No API credentials are required.
 
+[![Packagist Version](https://img.shields.io/packagist/v/DJTommek/mapycz-api?label=Packagist&style=flat-square)](https://packagist.org/packages/djtommek/mapycz-api)
+[![GitHub Repo stars](https://img.shields.io/github/stars/DJTommek/mapycz-api?label=Github%20stars&style=flat-square)](https://github.com/DJTommek/mapycz-api)
+
 ## Installation
 ```
 composer require djtommek/mapycz-api
