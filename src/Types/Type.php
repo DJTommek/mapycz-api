@@ -6,7 +6,7 @@ namespace DJTommek\MapyCzApi\Types;
  * @version 2020-10-22
  * @author Tomas Palider (DJTommek) https://tomas.palider.cz/
  */
-abstract class Type
+#[\AllowDynamicProperties] abstract class Type
 {
 	/**
 	 * Cast stdClass into specific type
