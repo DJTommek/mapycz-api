@@ -161,6 +161,7 @@ class MapyCzApi
 			headers: [
 				'Accept' => 'application/json',
 				'Content-Type' => 'text/xml',
+				'Referer' => 'https://mapy.cz/',
 			],
 			body: $xml
 		);
